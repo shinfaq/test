@@ -857,7 +857,6 @@ function getOffTime(chatworkid, start, end, tr) {
             "query": "chatworkid=\"" + chatworkid + "\"",
             "fields": ["$id", "sessionworkid"]
         };
-        // ---------------------Ca làm việc của nhân viên-----------
         kintone.api(kintone.api.url('/k/v1/records', true), 'GET', body, function (resp) {
 
             if (resp.records[0].sessionworkid.value == "1") {
