@@ -2,7 +2,6 @@ var currentDate = new Date();
 var viewName = "month";
 var staffData = [];
 var listDepartment = [];
-
 $(document).ready(function () {
     //   $('#datetimepicker1').datetimepicker({
     //                 format: 'L'});
