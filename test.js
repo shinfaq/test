@@ -3,13 +3,8 @@ var viewName = "month";
 var staffData = [];
 var listDepartment = [];
 $(document).ready(function () {
-    //   $('#datetimepicker1').datetimepicker({
-    //                 format: 'L'});
-
-
     $('#menu-item input').on('click', onClickMenu);
     $('#menu-navi button').on('click', onClickMove);
-
     var body = {
         "app": 5081,
         "query": "$id!=\"\"",
@@ -86,9 +81,6 @@ $(document).ready(function () {
 
         setText();
     });
-
-
-
 });
 function loadData() {
 
@@ -97,7 +89,6 @@ function loadData() {
     var end = param['end'];
     var dep = (param['list'].length == 0) ? listDepartment : param['list'];
     $('.gaia-argoui-app-index-pager-content').hide();
-
     var strListDepartment = ''
     if (dep.length > 0) {
         strListDepartment = 'and department in ('
@@ -139,10 +130,6 @@ function loadData() {
                 }
                 var tr = $('<tr></tr>');
                 tr.addClass(rc);
-
-
-
-
                 body = {
                     "app": 5016,
                     "query": "chatworkid=\"" + item.chatworkid.value + "\" and date>=\"" + start + "\" and date<=\"" + end + "\" and Status =\"Approved\" order by date asc limit 100 offset 0",
@@ -159,27 +146,16 @@ function loadData() {
                     };
                     // ---------------------Ca làm việc của nhân viên-----------
                     kintone.api(kintone.api.url('/k/v1/records', true), 'GET', body, function (resp) {
-
                         if (resp.records[0].sessionworkid.value == "1") {
-
                             totalOffTime += 8 * cout;
-
-
                             $(".totalOffTime").text(totalOffTime + "時間-" + totalOffTime2 + "時間");
                         }
                         else {
-
                             totalOffTime += 4 * cout;
-
-
                             $(".totalOffTime").text(totalOffTime + "時間-" + totalOffTime2 + "時間");
                         }
-
                     });
-
-
                 });
-
                 //------------------Danh sách xin nghỉ của 1 nhân viên------------
                 body = {
                     "app": 5016,
@@ -197,25 +173,15 @@ function loadData() {
                     };
                     // ---------------------Ca làm việc của nhân viên-----------
                     kintone.api(kintone.api.url('/k/v1/records', true), 'GET', body, function (resp) {
-
                         if (resp.records[0].sessionworkid.value == "1") {
-
                             totalOffTime2 += 8 * cout;
-
-
                             $(".totalOffTime").text(totalOffTime + "時間-" + totalOffTime2 + "時間");
                         }
                         else {
-
                             totalOffTime2 += 4 * cout;
-
-
                             $(".totalOffTime").text(totalOffTime + "時間-" + totalOffTime2 + "時間");
                         }
-
                     });
-
-
                 });
                 var body = {
                     "app": 5015,
@@ -227,13 +193,11 @@ function loadData() {
                     var jsons = JSON.stringify(resp.records);
                     var ttWorkTime = 0;
                     var ttOverTime = 0;
-                    var ttOffTime = 0;
                     if (resp.records.length > 0) {
                         resp.records.forEach(i => {
                             var workItem = 0;
                             var overItem = 0;
                             var otHour = 0;
-
                             var strwt = i.worktime.value;
                             var lwt = strwt.split(":");
                             ttWorkTime += parseInt(lwt[0]) + parseInt(lwt[1]) / 60;
@@ -246,16 +210,9 @@ function loadData() {
                                 overItem = parseInt(lot[0]) + parseInt(lot[1]) / 60;
                                 otHour = overItem * i.coefficient.value;
                             }
-
                             checkExistDate(dateArray, i.date.value, workItem, overItem, otHour);
                             getOffTime(item.chatworkid.value, start, end, tr)
-
-
                         })
-
-
-
-
                         allWorkTime += ttWorkTime;
                         allOverTime += ttOverTime;
                         $(".totalWorkTime").text(allWorkTime + "時間")
@@ -266,11 +223,8 @@ function loadData() {
                         tr.append($('<td class="ot">' + ttOverTime + '</td>'));
                         tr.append($('<td class="offtime"></td>'));
                         tr.append($('<td class="chatworkid" chatworkid="' + item.chatworkid.value + '"  data=\'' + jsons + '\'><i class="fas fa-eye"></i> </td>'));
-
-
                     }
                     else {
-
                         tr.append($(`<td style="text-align:left;" class="stn">` + item.staffname.value + '</td>'));
                         tr.append($('<td>' + item.department.value + '</td>'));
                         tr.append($('<td class="wt">&nbsp-&nbsp</td>'));
@@ -278,8 +232,6 @@ function loadData() {
                         tr.append($('<td class="offtime">&nbsp-&nbsp</td>'));
                         tr.append($('<td class="chatworkid"  chatworkid="' + item.chatworkid.value + '" data=\'' + jsons + '\'><i class="fas fa-eye"></i> </td>'));
                     }
-
-
                     $('.fa-eye').off('click').on('click', function () {
                         var chatworkid = $(this).parent('.chatworkid').attr('chatworkid');
                         var data = $(this).parent('.chatworkid').attr('data');
@@ -288,54 +240,16 @@ function loadData() {
                         var offtime = $(this).parents('tr').find(".offtime").text();
                         viewDetail(chatworkid, data, wt, ot, offtime);
                     });
-
-
-
-
-
-
-
-
-
-
-                    if (indexAll == reslle) {
-
-                    }
-
-
                 });
                 $tb = $("#showRecord");
                 $tb.append(tr);
-
-                indexAll = indexAll + 1;
-
             })
-
         }
-
         setTimeout(() => {
             drawChart1(dateArray);
         }, 1000);
-
     });
-
-
-
-
-
-    //////// Table AllStaff by Department
-
-
-
 }
-
-/**
- * 
- * @param {*} list 
- * @param {*} date 
- * @param {*} workTime 
- * @param {*} overTime 
- */
 function checkExistDate(list, date, workTime, overTime, otHour) {
     var addNew = true;
     var indexFound = null;
@@ -345,7 +259,6 @@ function checkExistDate(list, date, workTime, overTime, otHour) {
             indexFound = i;
         }
     }
-
     if (addNew) {
         list.push({
             date: date,
@@ -358,9 +271,7 @@ function checkExistDate(list, date, workTime, overTime, otHour) {
         list[indexFound].overTime += overTime;
         list[indexFound].otHour += otHour;
     }
-
 }
-
 function onClickMove(e) {
     var action = $(this).attr('data-action');
     if (action == "move-next") {
@@ -391,7 +302,6 @@ function onClickMove(e) {
     }
     setText();
 }
-
 function onClickMenu(e) {
     var action = $(this).attr('data-action');
     switch (action) {
@@ -410,7 +320,6 @@ function onClickMenu(e) {
     currentDate = new Date();
     setText();
 }
-
 function setText() {
     var text = "";
     if (viewName == 'month') {
@@ -428,16 +337,12 @@ function setText() {
     $('#renderRange').text(text);
     loadData();
 }
-
 function fm(n) {
     return n < 10 ? "0" + n : n;
 }
 function getFm(n) {
     return n < 10 ? "0" + n : n;
 }
-
-
-
 function getWeek(start) {
     start = start || 0;
     var day = currentDate.getDay() - start;
@@ -542,7 +447,6 @@ async function viewDetail(chatworkid, dataStr, wt, ot, offtime) {
         "query": "chatworkid = \"" + chatworkid + "\"",
         "fields": ["$id", "staffname", "department", "starttime", "endtime"]
     };
-
     kintone.api(kintone.api.url('/k/v1/records', true), 'GET', body, function (resp) {
         // success
         $("#title").html(resp.records[0].department.value + " -<span class='stn'> " + resp.records[0].staffname.value + "</span> (Chatwork ID︰ " + chatworkid + ")"
@@ -551,12 +455,9 @@ async function viewDetail(chatworkid, dataStr, wt, ot, offtime) {
         // error
         console.log(error);
     });
-
     // add OffDay to timeSheetData
     var stDay = start.toISOString().substring(0, 10);
     var enDay = end.toISOString().substring(0, 10);
-
-
     var listHoliday = [];
     body = {
         app: 5073,
@@ -567,8 +468,6 @@ async function viewDetail(chatworkid, dataStr, wt, ot, offtime) {
     kintone.api(kintone.api.url("/k/v1/records", true), "GET", body, function (resp) {
         listHoliday = resp.records;
     });
-
-
     var div = $('.infor');
     div.html("労働時間︰ " + wt + ", 残業時間︰ " + ot + ", 休憩時間︰ " + offtime)
     body = {
@@ -619,7 +518,6 @@ async function viewDetail(chatworkid, dataStr, wt, ot, offtime) {
                 tr.append($('<td class="first">' + getFm(daye.getMonth() + 1) + "/" + getFm(daye.getDate()) + " (" + thu[daye.getDay()] + ")" + '</td>'));
 
             var obj = null;
-
             for (var x = 0; x < timeSheetData.length; x++) {
                 var v1 = daye.getFullYear() + "-" + getFm(daye.getMonth() + 1) + "-" + getFm(daye.getDate());
                 if (v1 === timeSheetData[x].date.value) {
@@ -627,15 +525,11 @@ async function viewDetail(chatworkid, dataStr, wt, ot, offtime) {
                     break;
                 }
             }
-
             if (obj !== null) {
 
                 if (obj.reason != null) {
-
                     tr.append($('<td>' + `<span class="badge gradient-bloody text-white shadow">Off</span>` + '</td>'));
                     tr.append($('<td colspan ="6">' + obj.reason.value + '</td>'));
-
-
                     tr.append($('<td>' + '<i class="fa fa-pencil" aria-hidden="true"></i><i class="fa fa-save" style="display:none"></i>' + '</td>'));
                     tr.append($('<td style="display:none">' + obj.$id.value + '</td>'));
                 }
@@ -669,13 +563,11 @@ async function viewDetail(chatworkid, dataStr, wt, ot, offtime) {
                     if (obj.breaktime.value == null) {
                         obj.breaktime.value = "00:00";
                     }
-
                     tr.append($('<td>' + `<span ` + normal + ` class="badge gradient-quepal text-white shadow">Normal</span>` + '&nbsp' +
                         `<span ` + checkfull + ` class="badge notfull text-white shadow">Not Full</span>` + '&nbsp' +
                         `<span  ` + checkot + `  class="badge gradient-blooker text-white shadow">OT</span>` + '</td>'));
                     tr.append($('<td>' + obj.starttime.value + '</td>'));
                     tr.append($('<td>' + obj.endtime.value + '</td>'));
-
                     tr.append($('<td>' + obj.breaktime.value + '</td>'));
                     tr.append($('<td>' + obj.worktime.value + '</td>'));
                     tr.append($('<td>' + obj.overtime.value + '</td>'));
@@ -692,10 +584,7 @@ async function viewDetail(chatworkid, dataStr, wt, ot, offtime) {
                     if (wtnew == null) {
                         wtnew = "00:00";
                     }
-
-
                 }
-
             }
             else {
                 tr.append($('<td>' + `<span class="badge notset text-white shadow ">No Data</span>` + '</td>'))
@@ -706,25 +595,10 @@ async function viewDetail(chatworkid, dataStr, wt, ot, offtime) {
                 tr.append($('<td hidden>' + '&nbsp&nbsp-&nbsp&nbsp' + '</td>'));
                 tr.append($('<td>' + '&nbsp&nbsp-&nbsp&nbsp' + '</td>'));
                 tr.append($('<td></td>'));
-
             }
-
-
-
-
-
-
             detail.append(tr);
-
-
-
-
         }
-
-
-
         $('td i.fa-pencil').off('click').on('click', function () {
-
             $tr = $(this).parents('tr');
             $id = $tr.find('td:last()');
             if ($tr.find('td:nth-child(4)').text() == '') {
@@ -734,28 +608,19 @@ async function viewDetail(chatworkid, dataStr, wt, ot, offtime) {
                 var $reasonInput = $('<textarea class="editText" style="width:600px"></textarea>');
                 $reasonInput.val(reasonVal);
                 $reason.html($reasonInput);
-
             }
             else {
                 var $start = $tr.find('td:nth-child(3)');
                 var $end = $tr.find('td:nth-child(4)');
                 var startVal = $.trim($start.text());
                 var endVal = $.trim($end.text());
-
                 var $startInput = $('<input class="editText" />');
                 var $endInput = $('<input class="editText" />');
                 $startInput.val(startVal);
                 $endInput.val(endVal);
-
-
                 $start.html($startInput);
                 $end.html($endInput);
-
-
             }
-
-
-
             $(this).hide();
             $(this).next('i.fa-save').show();
         });
@@ -776,7 +641,6 @@ async function viewDetail(chatworkid, dataStr, wt, ot, offtime) {
                         }
                     }
                 };
-
                 kintone.api(kintone.api.url('/k/v1/record', true), 'PUT', body, function (resp) {
                     // success
                     console.log(resp);
@@ -784,21 +648,14 @@ async function viewDetail(chatworkid, dataStr, wt, ot, offtime) {
                     // error
                     console.log(error);
                 });
-
-
-
             }
             else {
-
-
                 var $startDate = $tr.find('td:nth-child(3)');
                 var $endDate = $tr.find('td:nth-child(4)');
                 var startVal = $.trim($startDate.find('input').val());
                 var endVal = $.trim($endDate.find('input').val());
-
                 $startDate.html(startVal);
                 $endDate.html(endVal);
-
                 var body = {
                     "app": 5015,
                     "id": $id,
@@ -819,23 +676,14 @@ async function viewDetail(chatworkid, dataStr, wt, ot, offtime) {
                     // error
                     console.log(error);
                 });
-
-
             }
             $(this).hide();
             $(this).prev().show();
-
         });
-
-
     });
 
     $(".bd-example-modal-xl").modal('show');
 }
-
-
-
-
 function getOffTime(chatworkid, start, end, tr) {
     var ttOffTime = 0;
     body = {
@@ -859,17 +707,8 @@ function getOffTime(chatworkid, start, end, tr) {
             }
             else {
                 ttOffTime = 4 * cout;
-
-
-
-
             }
-
             tr.find('.offtime').text(ttOffTime);
-
         });
-
-
     });
-
 }
