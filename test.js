@@ -831,9 +831,7 @@ async function viewDetail(chatworkid, dataStr, wt, ot, offtime) {
 
     });
 
-
     $(".bd-example-modal-xl").modal('show');
-
 }
 
 
