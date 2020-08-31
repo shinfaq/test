@@ -1,6 +1,7 @@
 var currentDate = new Date();
 var viewName = "month";
-var staffData = [];
+//ssdasdasdas
+var staffData =  [];
 var listDepartment = [];
 $(document).ready(function () {
     $('#menu-item input').on('click', onClickMenu);
