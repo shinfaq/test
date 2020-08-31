@@ -138,7 +138,7 @@ function loadData() {
                 };
                 //------------------Danh sách xin nghỉ của 1 nhân viên------------
                 kintone.api(kintone.api.url('/k/v1/records', true), 'GET', body, function (resp) {
-                    // successc
+
                     var cout = resp.records.length;
                     var body = {
                         "app": 5017,
