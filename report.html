@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>View</title>
+
+</head>
+
+<body>
+
+
+
+
+	<div class="container-fluid font-jp" style="padding-top:20px">
+		<div class="row">
+			<div class="col-12">
+				<div class="card card-custom gutter-b example example-compact" style="padding: 10px 10px;">
+					<div class="card-header">
+						<h3 class="card-title">検索条件</h3>
+					</div>
+					<div class="card-body">
+						<div class="form-group row">
+							<label class="col-1 col-form-label">部門</label>
+							<div class="col-11">
+								<select id="example-post" class="form-control" name="multiselect[]" multiple="multiple">
+								</select>
+							</div>
+						</div>
+						<div class="form-group row">
+							<label class="col-1 col-form-label">レポート</label>
+							<div class="col-11">
+								<div id="menu-item" class="btn-group btn-group-toggle" data-toggle="buttons">
+									<label class="btn btn-secondary ">
+										<input type="radio" name="options" id="option1" autocomplete="off"
+											data-action="toggle-daily"> 日
+									</label>
+									<label class="btn btn-secondary">
+										<input type="radio" name="options" id="option2" autocomplete="off"
+											data-action="toggle-weekly"> 週
+									</label>
+									<label class="btn btn-secondary active">
+										<input type="radio" name="options" id="option3" autocomplete="off" checked
+											data-action="toggle-monthly"> 月
+									</label>
+								</div>
+
+								<div class="btn-group dropup">
+									<div id="menu-navi" class="btn-group btn-group-toggle" style="margin-left: 20px;">
+										<button type="button" class="btn btn-primary move-today"
+											data-action="move-today">今日</button>
+										<button type="button" class="btn btn-light move-day" data-action="move-prev">
+											<i class="fas fa-arrow-left"></i>
+										</button>
+										<button type="button"  class="btn btn-light show-datePick" data-action="show-pick">
+											<i class="far fa-calendar-alt"></i>
+											<input id="datePick" style="width: 1px; height: 1px; position: absolute;opacity: 0;" >
+										</button>
+										<button type="button" class="btn btn-light move-day" data-action="move-next">
+											<i class="fas fa-arrow-right"></i>
+										</button>
+
+									</div>
+									<span id="renderRange" class="render-range"></span>
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- PART 1 -->
+		<div class="row mt-2">
+			<div class="col-12 col-md-6 col-lg-6 col-xl-3">
+				<div class="card gradient-scooter bubble border-0">
+					<div class="card-body card-block p-3">
+						<div class="media align-items-center">
+							<div class="media-body text-left">
+								<p class="text-white">社員</p>
+								<h5 class="text-white mb-0 totalStaff">0人</h5>
+								
+							</div>
+							<div class="w-icon"><i class="fas fa-running text-white"></i></div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-12 col-md-6 col-lg-6 col-xl-3">
+				<div class="card bubble gradient-very-blue border-0">
+					<div class="card-body card-block p-3">
+						<div class="media align-items-center">
+							<div class="media-body text-left">
+								<p class="text-white">労働時間の合計</p>
+								<h5 class="text-white mb-0 totalWorkTime">0時間</h5>
+								
+							</div>
+							<div class="w-icon"><i class="far fa-clock text-white"></i></div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-12 col-md-6 col-lg-6 col-xl-3">
+				<div class="card gradient-violet bubble border-0">
+					<div class="card-body card-block p-3">
+						<div class="media align-items-center">
+							<div class="media-body text-left">
+								<p class="text-white">残業時間の合計</p>
+								<h5 class="text-white mb-0 totalOverTime">0時間</h5>
+								
+							</div>
+							<div class="w-icon"><i class="fas fa-fire-alt text-white"></i></div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-12 col-md-6 col-lg-6 col-xl-3">
+				<div class="card gradient-ibiza bubble border-0">
+					<div class="card-body card-block p-3">
+						<div class="media align-items-center">
+							<div class="media-body text-left">
+								<p class="text-white">休憩時間の合計</p>
+								<h5 class="text-white mb-0 totalOffTime">0時間</h5>
+							</div>
+							<div class="w-icon"><i class="fas fa-house-user text-white"></i>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--PART 2-->
+		<div class="row">
+			<div class="col-12 col-lg-8 col-xl-8">
+				<div class="card">
+					<div class="card-header">
+						<div class="row align-items-center">
+							<div class="col">
+								<h6 class="text-uppercase mb-0">タイムチャート</h6>
+							</div>
+							<div class="col">
+								<ul class="list-inline mb-0 d-flex justify-content-end">
+									<li class="list-inline-item"><span
+											class="gradient-scooter d-inline-block rounded-circle mr-1"
+											style="width: 13px; height: 13px;"></span> 労働</li>
+									<li class="list-inline-item"><span
+											class="gradient-green d-inline-block rounded-circle mr-1"
+											style="width: 13px; height: 13px;"></span> 残業</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div class="card-body">
+						<div id="chart" class="chart-container">
+
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-12 col-lg-4 col-xl-4">
+				<div class="card">
+					<div class="card-header text-uppercase">スタッフチャート</div>
+					<div class="card-body">
+						<div id="chart2" class="chart-container">
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- PART 4-->
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="card">
+					<div class="card-header border-0"> 社員一覧
+						<!-- <div class="card-action">
+							<div display="dynamic" placement="bottom-right" ngbdropdown=""
+								class="dropdown"><a aria-haspopup="true" href="javascript:;"
+									id="dropdownBasic4" ngbdropdowntoggle=""
+									class="dropdown-toggle dropdown-toggle-nocaret" aria-expanded="false"><i
+										class="icon-options"></i></a>
+								<div ngbdropdownmenu="" aria-labelledby="dropdownBasic4"
+									class="dropdown-menu" x-placement="bottom-right"><a
+										href="javaScript:;" class="dropdown-item">Action</a><a
+										href="javaScript:;" class="dropdown-item">Another action</a><a
+										href="javaScript:;" class="dropdown-item">Something else
+										here</a>
+									<div class="dropdown-divider"></div><a
+										href="javaScript:;" class="dropdown-item">Separated link</a>
+								</div>
+							</div>
+						</div> -->
+					</div>
+					<div class="table-responsive">
+						<table class="table align-items-center table-flush">
+							<thead>
+								<tr>
+									<th style="width: 260px;">社員名</th>
+									<th>部門</th>
+									<th>労働時間</th>
+									<th>残業時間</th>
+									<th>休憩時間</th>
+									<th></th>
+								</tr>
+							</thead>
+							<tbody id="showRecord">
+
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Modal -->
+	<div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel"
+		aria-hidden="true">
+		<div class="modal-dialog modal-xl" role="document">
+
+			<div class="modal-content">
+
+					<!-- PART 4-->
+					<div class="row">
+						<div class="col-lg-12">
+							<div class="card">
+								<div class="card-header border-0" id = title></div>
+								<div class="infor card-header border-0"></div>
+								<div class="table-responsive">
+									<table class="table align-items-center table-flush">
+										<thead>
+											<tr>
+												<th style="width:120px;">日付</th>
+												<th>タグ</th>
+												<th><i class="fa fa-sign-in" aria-hidden="true"></i> 出勤時刻 </th>
+												<th><i class="fa fa-sign-out" aria-hidden="true"></i> 退勤時刻</th>
+												<th>休憩時間</th>
+												<th>労働時間</th>
+												<th>残業時間</th>
+												<th hidden>残業（係数をかけた)</th>
+                                                <th></th>
+											</tr>
+										</thead>
+										<tbody id="detail">
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>
