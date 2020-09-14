@@ -4,41 +4,38 @@ var staffData = [];
 var listDepartment = [];
 
 $(document).ready(function () {
-    //   $('#datetimepicker1').datetimepicker({
-    //                 format: 'L'});
-    
-    
-$.datepicker.setDefaults( {
-	closeText: "閉じる",
-	prevText: "&#x3C;前",
-	nextText: "次&#x3E;",
-	currentText: "今日",
-	monthNames: [ "1月","2月","3月","4月","5月","6月",
-	"7月","8月","9月","10月","11月","12月" ],
-	monthNamesShort: [ "1月","2月","3月","4月","5月","6月",
-	"7月","8月","9月","10月","11月","12月" ],
-	dayNames: [ "日曜日","月曜日","火曜日","水曜日","木曜日","金曜日","土曜日" ],
-	dayNamesShort: [ "日","月","火","水","木","金","土" ],
-	dayNamesMin: [ "日","月","火","水","木","金","土" ],
-	weekHeader: "週",
-	dateFormat: "yy/mm/dd",
-	firstDay: 0,
-	isRTL: false,
-	showMonthAfterYear: true,
-	yearSuffix: "年" } );
-    
-     var year = (new Date).getFullYear();
-     $( "#datePick" ).datepicker({
-      changeMonth: true,
-      changeYear: true,
-      onSelect: function(date) {
-            currentDate = new Date(date);
-             setText();
-      },
-      maxDate: new Date(year, 11, 31)
+    $.datepicker.setDefaults({
+        closeText: "閉じる",
+        prevText: "&#x3C;前",
+        nextText: "次&#x3E;",
+        currentText: "今日",
+        monthNames: ["1月", "2月", "3月", "4月", "5月", "6月",
+            "7月", "8月", "9月", "10月", "11月", "12月"],
+        monthNamesShort: ["1月", "2月", "3月", "4月", "5月", "6月",
+            "7月", "8月", "9月", "10月", "11月", "12月"],
+        dayNames: ["日曜日", "月曜日", "火曜日", "水曜日", "木曜日", "金曜日", "土曜日"],
+        dayNamesShort: ["日", "月", "火", "水", "木", "金", "土"],
+        dayNamesMin: ["日", "月", "火", "水", "木", "金", "土"],
+        weekHeader: "週",
+        dateFormat: "yy/mm/dd",
+        firstDay: 0,
+        isRTL: false,
+        showMonthAfterYear: true,
+        yearSuffix: "年"
     });
-    
-    $('.show-datePick').on('click', function(){
+
+    var year = (new Date).getFullYear();
+    $("#datePick").datepicker({
+        changeMonth: true,
+        changeYear: true,
+        onSelect: function (date) {
+            currentDate = new Date(date);
+            setText();
+        },
+        maxDate: new Date(year, 11, 31)
+    });
+
+    $('.show-datePick').on('click', function () {
         $("#datePick").datepicker("show");
     });
 
@@ -474,12 +471,12 @@ function setText() {
     }
     if (viewName == 'week') {
         var week = getWeek();
-        var start = week[0].getFullYear() + "年" + fm(week[0].getMonth() + 1) + "月" + fm(week[0].getDate())+"日";
-        var end = week[1].getFullYear() + "年" + fm(week[1].getMonth() + 1) + "月" + fm(week[1].getDate())+"日";
+        var start = week[0].getFullYear() + "年" + fm(week[0].getMonth() + 1) + "月" + fm(week[0].getDate()) + "日";
+        var end = week[1].getFullYear() + "年" + fm(week[1].getMonth() + 1) + "月" + fm(week[1].getDate()) + "日";
         text = start + "～" + end;
     }
     if (viewName == 'day') {
-        text = currentDate.getFullYear() + "年" + fm(currentDate.getMonth() + 1) + "月" + fm(currentDate.getDate())+"日";
+        text = currentDate.getFullYear() + "年" + fm(currentDate.getMonth() + 1) + "月" + fm(currentDate.getDate()) + "日";
     }
     $('#renderRange').text(text);
     loadData();
