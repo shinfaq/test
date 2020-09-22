@@ -1,0 +1,12 @@
+.row1{
+    width: calc(100%/12);
+}
+.row12{
+    width: calc(100%);
+}
+.row6{
+    width: calc(100%/2);
+}
+.row3{
+    width: calc(100%/4);
+}

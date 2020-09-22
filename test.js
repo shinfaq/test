@@ -4,6 +4,10 @@ var staffData = [];
 var listDepartment = [];
 
 $(document).ready(function () {
+    //   $('#datetimepicker1').datetimepicker({
+    //                 format: 'L'});
+
+
     $.datepicker.setDefaults({
         closeText: "閉じる",
         prevText: "&#x3C;前",
@@ -485,12 +489,6 @@ function setText() {
 function fm(n) {
     return n < 10 ? "0" + n : n;
 }
-function getFm(n) {
-    return n < 10 ? "0" + n : n;
-}
-
-
-
 function getWeek(start) {
     start = start || 0;
     var day = currentDate.getDay() - start;
@@ -669,19 +667,19 @@ async function viewDetail(chatworkid, dataStr, wt, ot, offtime) {
                 listHoliday.forEach(item => {
                     // nếu là ngày nghỉ lễ
                     if (item.date.value == datec) {
-                        tr.append($('<td class="first holiday">' + getFm(daye.getMonth() + 1) + "/" + getFm(daye.getDate()) + " (" + thu[daye.getDay()] + ") </br><span style='font-size:12px;color:red;'>(" + item.description.value + ')</span></td>'));
+                        tr.append($('<td class="first holiday">' + fm(daye.getMonth() + 1) + "/" + fm(daye.getDate()) + " (" + thu[daye.getDay()] + ") </br><span style='font-size:12px;color:red;'>(" + item.description.value + ')</span></td>'));
                         check = true;
                     }
                 })
             }
             // không phải là ngày nghỉ lễ
             if (check == false)
-                tr.append($('<td class="first">' + getFm(daye.getMonth() + 1) + "/" + getFm(daye.getDate()) + " (" + thu[daye.getDay()] + ")" + '</td>'));
+                tr.append($('<td class="first">' + fm(daye.getMonth() + 1) + "/" + fm(daye.getDate()) + " (" + thu[daye.getDay()] + ")" + '</td>'));
 
             var obj = null;
             // nếu có data trong ngày thì gán data cho obj
             for (var x = 0; x < timeSheetData.length; x++) {
-                var v1 = daye.getFullYear() + "-" + getFm(daye.getMonth() + 1) + "-" + getFm(daye.getDate());
+                var v1 = daye.getFullYear() + "-" + fm(daye.getMonth() + 1) + "-" + fm(daye.getDate());
                 if (v1 === timeSheetData[x].date.value) {
                     obj = timeSheetData[x];
                     break;

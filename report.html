@@ -30,39 +30,52 @@
 						</div>
 						<div class="form-group row">
 							<label class="col-1 col-form-label">レポート</label>
-							<div class="col-11">
-								<div id="menu-item" class="btn-group btn-group-toggle" data-toggle="buttons">
-									<label class="btn btn-secondary ">
-										<input type="radio" name="options" id="option1" autocomplete="off"
-											data-action="toggle-daily"> 日
-									</label>
-									<label class="btn btn-secondary">
-										<input type="radio" name="options" id="option2" autocomplete="off"
-											data-action="toggle-weekly"> 週
-									</label>
-									<label class="btn btn-secondary active">
-										<input type="radio" name="options" id="option3" autocomplete="off" checked
-											data-action="toggle-monthly"> 月
-									</label>
-								</div>
+							<div class="col-11 form-flex">
+								<div>
+									<div id="menu-item" class="btn-group btn-group-toggle" data-toggle="buttons">
+										<label class="btn btn-secondary ">
+											<input type="radio" name="options" id="option1" autocomplete="off"
+												data-action="toggle-daily"> 日
+										</label>
+										<label class="btn btn-secondary">
+											<input type="radio" name="options" id="option2" autocomplete="off"
+												data-action="toggle-weekly"> 週
+										</label>
+										<label class="btn btn-secondary active">
+											<input type="radio" name="options" id="option3" autocomplete="off" checked
+												data-action="toggle-monthly"> 月
+										</label>
+									</div>
 
-								<div class="btn-group dropup">
-									<div id="menu-navi" class="btn-group btn-group-toggle" style="margin-left: 20px;">
-										<button type="button" class="btn btn-primary move-today"
-											data-action="move-today">今日</button>
-										<button type="button" class="btn btn-light move-day" data-action="move-prev">
-											<i class="fas fa-arrow-left"></i>
-										</button>
-										<button type="button"  class="btn btn-light show-datePick" data-action="show-pick">
-											<i class="far fa-calendar-alt"></i>
-											<input id="datePick" style="width: 1px; height: 1px; position: absolute;opacity: 0;" >
-										</button>
-										<button type="button" class="btn btn-light move-day" data-action="move-next">
-											<i class="fas fa-arrow-right"></i>
-										</button>
+									<div class="btn-group dropup">
+										<div id="menu-navi" class="btn-group btn-group-toggle"
+											style="margin-left: 20px;">
+											<button type="button" class="btn btn-primary move-today"
+												data-action="move-today">今日</button>
+											<button type="button" class="btn btn-light move-day"
+												data-action="move-prev">
+												<i class="fas fa-arrow-left"></i>
+											</button>
+											<button type="button" class="btn btn-light show-datePick"
+												data-action="show-pick">
+												<i class="far fa-calendar-alt"></i>
+												<input id="datePick"
+													style="width: 1px; height: 1px; position: absolute;opacity: 0;">
+											</button>
+											<button type="button" class="btn btn-light move-day"
+												data-action="move-next">
+												<i class="fas fa-arrow-right"></i>
+											</button>
+
+										</div>
+										<span id="renderRange" class="render-range"></span>
 
 									</div>
-									<span id="renderRange" class="render-range"></span>
+
+								</div>
+								<div class="reportBtn">
+									<button class="btn" onClick="download()"><i class="fas fa-file-csv"></i></button>
+
 								</div>
 							</div>
 						</div>
@@ -81,7 +94,7 @@
 							<div class="media-body text-left">
 								<p class="text-white">社員</p>
 								<h5 class="text-white mb-0 totalStaff">0人</h5>
-								
+
 							</div>
 							<div class="w-icon"><i class="fas fa-running text-white"></i></div>
 						</div>
@@ -95,7 +108,7 @@
 							<div class="media-body text-left">
 								<p class="text-white">労働時間の合計</p>
 								<h5 class="text-white mb-0 totalWorkTime">0時間</h5>
-								
+
 							</div>
 							<div class="w-icon"><i class="far fa-clock text-white"></i></div>
 						</div>
@@ -109,7 +122,7 @@
 							<div class="media-body text-left">
 								<p class="text-white">残業時間の合計</p>
 								<h5 class="text-white mb-0 totalOverTime">0時間</h5>
-								
+
 							</div>
 							<div class="w-icon"><i class="fas fa-fire-alt text-white"></i></div>
 						</div>
@@ -175,33 +188,17 @@
 			<div class="col-lg-12">
 				<div class="card">
 					<div class="card-header border-0"> 社員一覧
-						<!-- <div class="card-action">
-							<div display="dynamic" placement="bottom-right" ngbdropdown=""
-								class="dropdown"><a aria-haspopup="true" href="javascript:;"
-									id="dropdownBasic4" ngbdropdowntoggle=""
-									class="dropdown-toggle dropdown-toggle-nocaret" aria-expanded="false"><i
-										class="icon-options"></i></a>
-								<div ngbdropdownmenu="" aria-labelledby="dropdownBasic4"
-									class="dropdown-menu" x-placement="bottom-right"><a
-										href="javaScript:;" class="dropdown-item">Action</a><a
-										href="javaScript:;" class="dropdown-item">Another action</a><a
-										href="javaScript:;" class="dropdown-item">Something else
-										here</a>
-									<div class="dropdown-divider"></div><a
-										href="javaScript:;" class="dropdown-item">Separated link</a>
-								</div>
-							</div>
-						</div> -->
 					</div>
 					<div class="table-responsive">
 						<table class="table align-items-center table-flush">
 							<thead>
 								<tr>
-									<th style="width: 260px;">社員名</th>
+									<th style="width: 15%;">社員名</th>
 									<th>部門</th>
 									<th>労働時間</th>
 									<th>残業時間</th>
 									<th>休憩時間</th>
+									<th></th>
 									<th></th>
 								</tr>
 							</thead>
@@ -221,34 +218,34 @@
 
 			<div class="modal-content">
 
-					<!-- PART 4-->
-					<div class="row">
-						<div class="col-lg-12">
-							<div class="card">
-								<div class="card-header border-0" id = title></div>
-								<div class="infor card-header border-0"></div>
-								<div class="table-responsive">
-									<table class="table align-items-center table-flush">
-										<thead>
-											<tr>
-												<th style="width:120px;">日付</th>
-												<th>タグ</th>
-												<th><i class="fa fa-sign-in" aria-hidden="true"></i> 出勤時刻 </th>
-												<th><i class="fa fa-sign-out" aria-hidden="true"></i> 退勤時刻</th>
-												<th>休憩時間</th>
-												<th>労働時間</th>
-												<th>残業時間</th>
-												<th hidden>残業（係数をかけた)</th>
-                                                <th></th>
-											</tr>
-										</thead>
-										<tbody id="detail">
-										</tbody>
-									</table>
+				<!-- PART 4-->
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="card">
+							<div class="card-header border-0" id=title></div>
+							<div class="infor card-header border-0"></div>
+
+							<div class="table-responsive">
+								<div class="table container align-items-center table-flush">
+									<div class="row" style="margin-bottom: 15px;">
+										<div class="col-md-2 col-sm-6">日付</div>
+										<div class="col-md-2 col-sm-6">タグ</div>
+										<div class="col-md-2 col-sm-6"><i class="fa fa-sign-in" aria-hidden="true"></i> 出勤時刻
+										</div>
+										<div class="col-md-2 col-sm-6"><i class="fa fa-sign-out" aria-hidden="true"></i>
+											退勤時刻</div>
+										<div class="col-md-1 col-sm-3">休憩時間</div>
+										<div class="col-md-1 col-sm-3">労働時間</div>
+										<div class="col-md-1 col-sm-3">残業時間</div>
+										<div class="col-md-1 col-sm-3"></div>
+									</div>
+									<div id="detail">
+									</div>
 								</div>
 							</div>
 						</div>
 					</div>
+				</div>
 
 			</div>
 		</div>

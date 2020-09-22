@@ -17,7 +17,7 @@ start-end の残業時間が登録しました。
 すでにチェックインしました"; 
     $attendanceSuccess = "
 おつかれさまです。良い一日を。";
-    $lateAttendanceWarning = "
+       $lateAttendanceWarning = "
 今日あなたは遅刻しました";
     $weekendRemind = "
 今日は週末です。残業申請を行ってください。
