@@ -10,7 +10,25 @@ var dataHolidayManagement = [];
 var dataStaffMaster = [];
 var startReportYear = 2000;
 var currDay = new Date();
+var ready = false;
+var optionVal = "type2"
 $(document).ready(function () {
+    $('.gaia-argoui-app-index-pager-content').hide();
+    if (cybozu.data['LOGIN_USER'].locale == 'en'){
+        $('.title').html("振替休・有休管理/Compensatory leave・Anual Leave Management");
+        $('.txtYear').text("年度")
+        $('.txtOption1').text("振替休")
+        $('.txtOption2').text("有休")
+        $('.txtName').text("名前")
+        $('.txtDpm').text("部署")
+        $('.txtStartWork').text("入社日")
+        $('.txtWorkMonth').text("働いた月数")
+        $('.txtOff').text("有休日数")
+        $('.txtOffUsed').text("有休残高")
+        $('.txtMonthly').text("毎月の使用日数")
+        $('.txtRp').text("報告日/Report date: ")
+    }
+    $(".txtRpDay").text(currDay.toISOString().substr(0, 10))
     $('body').removeClass('body-top');
     appendOption()
 
@@ -19,12 +37,31 @@ $(document).ready(function () {
     });
     var year = $('#selectYear').val();
     getData(currDay.getFullYear());
-    setTimeout(() => {
-        showData(year)
-    }, 500);
-    $('#selectYear').change(function(){
+    interval = setInterval(() => {
+        if(ready==true){
+            showData(year);
+            clearInterval(interval)
+        }
+    }, 10);
+    $('#selectYear').change(function () {
         setData()
     })
+    $("#type1") 
+    .change(function(){ 
+        if( $(this).is(":checked") ){ 
+            optionVal = $(this).val();
+            
+            setData()
+        }
+    });
+    $("#type2") 
+    .change(function(){ 
+        if( $(this).is(":checked") ){ 
+            optionVal = $(this).val();
+           
+            setData()
+        }
+    });
 });
 function getData(year) {
     var startDate = new Date(year, 0, 2);
@@ -68,6 +105,7 @@ function fetchRecordsFromTo(appId, from, to, opt_offset, opt_limit, opt_records)
         if (resp.records.length === limit) {
             return fetchRecordsFromTo(appId, from, to, offset + limit, limit, allRecords);
         }
+        else ready = true;
         return allRecords;
     });
 }
@@ -75,53 +113,109 @@ function showData(year) {
     $showData = $("#showData");
     $showData.html('');
     console.log(dataHolidayManagement);
+    var index = 1;  
+    if(optionVal=="type2")
+        $('.txtOff').text("有休日数")
+    if(optionVal=="type1")
+        $('.txtOff').text("振替休日数")
     dataStaffMaster.forEach(staff => {
+
+
         var staffHoliday = [];
-        dataHolidayManagement.forEach(item =>{
-            if(item.chatworkid.value==staff.chatworkid.value){
-                item.month =parseInt(item.date.value.substr(5,2));
+        dataHolidayManagement.forEach(item => {
+            if (item.chatworkid.value == staff.chatworkid.value) {
+                item.month = parseInt(item.date.value.substr(5, 2));
                 staffHoliday.push(item);
             }
 
         })
         $div = $(`<div class="row"></div>`);
+        if (index % 2 == 0) {
+            $div.addClass('even')
+        }
+
+        else
+            $div.addClass('odd')
+        index++
         $div1 = $(`<div class="col-6 row"></div>`);
-        $div1.append(`<div class="col-3">` + staff.staffname.value + `</div>`);
+        $div1.append(`<div class="col-3 stn">` + staff.staffname.value + `</div>`);
         $div1.append(`<div class="col-3">` + staff.department.value + `</div>`);
         $div1.append(`<div class="col-3">` + staff.startworkdate.value + `</div>`);
         var selectYearBegin = new Date(year, 0, 2)
         var startWorkDay = new Date(staff.startworkdate.value)
         var monthsWork = 0;
-        if(startWorkDay.getFullYear()>year){
-            monthsWork = 0;
+        var totalMonthsWork = 0;
+        if(optionVal=="type2"){
+            // if (year == currDay.getFullYear()) {
+            //     if (startWorkDay.getFullYear() == year) {
+            //         monthsWork = currDay.getMonth() - startWorkDay.getMonth() + 1;
+            //     }
+            //     else {
+            //         monthsWork = currDay.getMonth() + 1;
+            //     }
+    
+            // }
+            // else if (year == startWorkDay.getFullYear()) {
+            //     monthsWork = 12 - startWorkDay.getMonth();
+            // }
+            // else if (startWorkDay.getFullYear() < year)
+            //     monthsWork = 12;
+            // else
+            //     monthsWork = "-";
+            if(year >= startWorkDay.getFullYear()){
+                if(startWorkDay.getFullYear() == currDay.getFullYear()){
+                    monthsWork = currDay.getMonth() - startWorkDay.getMonth() + 1;
+                }
+                else monthsWork = 12;
+            }
+            else
+                monthsWork = '';
         }
-        else if (startWorkDay > selectYearBegin)
-            monthsWork = 12 - (startWorkDay.getMonth() - 1);
-        else 
-            monthsWork = 12;
-        $div1.append(`<div class="col-1">` + monthsWork + `</div>`);
+        if (startWorkDay.getFullYear() == currDay.getFullYear()) {
+            totalMonthsWork = currDay.getMonth() + 1;
+        }
+        else {
+            totalMonthsWork = currDay.getMonth() + 1 + 12 * (currDay.getFullYear() - startWorkDay.getFullYear() - 1) + 12 - (startWorkDay.getMonth() + 1);
+        }
+        if(optionVal=="type1"){
+            monthsWork=staff.off.value
+        }
+
+        $div1.append(`<div class="col-1">` + totalMonthsWork + `</div>`);
         $div1.append(`<div class="col-1">` + monthsWork + `</div>`);
         $div2 = $(`<div class="col-6 row"></div>`);
         var totalOff = 0;
-        for(let i = 1;i<=12;i++){
+        for (let i = 1; i <= 12; i++) {
             var cout = 0;
-            staffHoliday.forEach(holiday =>{
-                if(holiday.month==i)
+            staffHoliday.forEach(holiday => {
+                if (holiday.month == i)
                     cout++;
             })
-            totalOff+= cout
-            $div2.append(`<div class="col-1">` + cout + `</div>`);
+            totalOff += cout
+            if (cout == 0)
+                $div2.append(`<div class="col-1">` + "-" + `</div>`);
+            else
+                $div2.append(`<div class="col-1">` + cout + `</div>`);
         }
-        var remaining = monthsWork- totalOff
-        $div1.append(`<div class="col-1">` +remaining + `</div>`);
-        $showData.append($div1);
-        $showData.append($div2);
+        var remaining = monthsWork - totalOff;
+        $div1.append(`<div class="col-1">` + remaining + `</div>`);
+        $div.append($div1);
+        $div.append($div2);
+        $('#loading').hide();
+        $showData.append($div);
+
     })
 }
 function setData() {
+    ready = false;
     var year = $('#selectYear').val();
+    $('#loading').show();
     getData(year);
-    setTimeout(() => {
-        showData(year);
-    }, 500);
+    interval = setInterval(() => {
+        if(ready==true){
+            showData(year);
+            clearInterval(interval)
+        }
+    }, 10);
+    
 }

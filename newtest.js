@@ -19,56 +19,145 @@ var listAppId = {
     HolidayManagement: "5016",
     ShiftMaster: "5013",
 };
+var ready1 = false;
+var ready2 = false;
+var ready3 = false;
+var ready4 = false;
+var ready5 = false;
+
+var datepickerText = {
+}
+var multiselectText = {
+}
+var txtDay = "";
+var txtYear = "";
+var txtMonth = "";
+var txtChart1="";
+var txtChart2="";
+var txtPeople = "";
+var txtHour = "";
+var txtTtOff = "";
+var thu = [];
 $(document).ready(function () {
+    // -----set text for multilang
+    if (cybozu.data['LOGIN_USER'].locale == 'en') {
+        $(".condition").text("検索条件");
+        $(".dpm").text("部門");
+        $(".ttReport").text("レポート");
+        $(".opt1").text("日");
+        $(".opt2").text("週");
+        $(".opt3").text("月");
+        $(".move-today").text("今日");
+        $(".staff").text("社員");
+        $(".ttw").text("労働時間の合計");
+        $(".ttot").text("残業時間の合計");
+        $(".ttoff").text("休憩時間の合計");
+        $(".charttime").text("タイムチャート");
+        $(".charttimework").text("労働");
+        $(".charttimeot").text("残業");
+        $(".chartdpm").text("スタッフチャート");
+        $(".liststaff").text("社員一覧");
+        $(".p4name").text("社員名");
+        $(".p4dpm").text("部門");
+        $(".p4wt").text("労働時間");
+        $(".p4ot").text("残業時間");
+        $(".p4off").text("休憩時間");
+        $(".mdday").text("日付");
+        $(".mdtype").text("タグ");
+        $(".mdstart").text("出勤時刻");
+        $(".mdend").text("退勤時刻");
+        $(".mdrest").text("休憩時間");
+        $(".mdwork").text("労働時間");
+        $(".mdot").text("残業時間");
+        datepickerText = {
+            closeText: "閉じる",
+            prevText: "&#x3C;前",
+            nextText: "次&#x3E;",
+            currentText: "今日",
+            monthNames: ["1月", "2月", "3月", "4月", "5月", "6月",
+                "7月", "8月", "9月", "10月", "11月", "12月"],
+            monthNamesShort: ["1月", "2月", "3月", "4月", "5月", "6月",
+                "7月", "8月", "9月", "10月", "11月", "12月"],
+            dayNames: ["日曜日", "月曜日", "火曜日", "水曜日", "木曜日", "金曜日", "土曜日"],
+            dayNamesShort: ["日", "月", "火", "水", "木", "金", "土"],
+            dayNamesMin: ["日", "月", "火", "水", "木", "金", "土"],
+            weekHeader: "週",
+            yearSuffix: "年"
+        }
+        multiselectText = {
+            selectAllText: "すべて",
+            filterPlaceholder: "探索",
+            nonSelectedText: "なし",
+            allSelectedText: "すべて選択済み",
+            nSelectedText: "選択済み",
+        }
+        txtDay = "日";
+        txtYear = "年";
+        txtMonth = "月";
+        txtChart1="労働時間";
+        txtChart2="残業時間";
+        txtPeople = "人";
+        txtHour = "時間";
+        txtTtOff = "休憩時間";
+        thu = [
+            "日", "月", "火", "水", "木", "金", "土"
+        ];
+    }
     $('body').removeClass('body-top');
     getAllData();
-    setTimeout(() => {
-        setDefaults();
-        drawChart2();
-    }, 1000);
-
-
+    interval = setInterval(() => {
+        if (ready1 && ready2 && ready3 && ready4 && ready5) {
+            $('#loading').hide();
+            setDefaults();
+            drawChart2();
+            clearInterval(interval)
+        }
+    }, 100);
 });
 // lấy hết data của các app
 async function getAllData() {
     fetchRecords(listAppId.AttendanceManagement).then(function (records) {
         dataAttendanceManagement = records;
+        ready1 = true;
     });
     fetchRecords(listAppId.ShiftMaster).then(function (records) {
         dataShiftMaster = records;
+        ready2 = true;
     });
     fetchRecords(listAppId.HolidayManagement).then(function (records) {
         dataHolidayManagement = records;
+        ready3 = true;
     });
     fetchRecords(listAppId.HolidayMaster).then(function (records) {
         dataHolidayMaster = records;
+        ready4 = true;
     });
     fetchRecords(listAppId.StaffMaster).then(function (records) {
         dataStaffMaster = records;
+        ready5 = true;
     });
     fetchRecords(listAppId.DepartmentMaster).then(function (records) {
         dataDepartmentMaster = records;
     })
+
 }
 function setDefaults() {
     $.datepicker.setDefaults({
-        closeText: "閉じる",
-        prevText: "&#x3C;前",
-        nextText: "次&#x3E;",
-        currentText: "今日",
-        monthNames: ["1月", "2月", "3月", "4月", "5月", "6月",
-            "7月", "8月", "9月", "10月", "11月", "12月"],
-        monthNamesShort: ["1月", "2月", "3月", "4月", "5月", "6月",
-            "7月", "8月", "9月", "10月", "11月", "12月"],
-        dayNames: ["日曜日", "月曜日", "火曜日", "水曜日", "木曜日", "金曜日", "土曜日"],
-        dayNamesShort: ["日", "月", "火", "水", "木", "金", "土"],
-        dayNamesMin: ["日", "月", "火", "水", "木", "金", "土"],
-        weekHeader: "週",
+        closeText: datepickerText.closeText,
+        prevText: datepickerText.prevText,
+        nextText: datepickerText.nextText,
+        currentText: datepickerText.currentText,
+        monthNames: datepickerText.monthNames,
+        monthNamesShort: datepickerText.monthNamesShort,
+        dayNames: datepickerText.dayNames,
+        dayNamesShort: datepickerText.dayNamesShort,
+        dayNamesMin: datepickerText.dayNamesMin,
+        weekHeader: datepickerText.weekHeader,
         dateFormat: "yy/mm/dd",
         firstDay: 0,
         isRTL: false,
         showMonthAfterYear: true,
-        yearSuffix: "年"
+        yearSuffix: datepickerText.yearSuffix,
     });
 
     var year = (new Date).getFullYear();
@@ -102,14 +191,14 @@ function setDefaults() {
         includeSelectAllOption: true,
         buttonClass: 'btn btn-light',
         enableFiltering: true,
-        selectAllText: "すべて",
-        filterPlaceholder: "探索",
-        nonSelectedText: "なし",
-        allSelectedText: "すべて選択済み",
-        nSelectedText: "選択済み",
-        onChange: function(option, checked, select, event) {
+        selectAllText: multiselectText.selectAllText,
+        filterPlaceholder: multiselectText.filterPlaceholder,
+        nonSelectedText: multiselectText.nonSelectedText,
+        allSelectedText: multiselectText.allSelectedText,
+        nSelectedText: multiselectText.nSelectedText,
+        onChange: function () {
             loadData()
-          },
+        },
         templates: {
             ul: '<ul class="multiselect-container dropdown-menu"></ul>',
             filter: '<li class="multiselect-item filter"><div class="input-group"><input class="form-control multiselect-search" type="text"></div></li>',
@@ -120,55 +209,6 @@ function setDefaults() {
         }
     });
     setText();
-}
-function getParam() {
-    var start = "";
-    var end = "";
-    if (viewName == 'month') {
-        var firstDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
-        start = firstDate.getFullYear() + "-" + fm(firstDate.getMonth() + 1) + "-" + fm(firstDate.getDate());
-        var lastDate = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
-        end = lastDate.getFullYear() + "-" + fm(lastDate.getMonth() + 1) + "-" + fm(lastDate.getDate());
-    }
-    if (viewName == 'week') {
-        var week = getWeek();
-        start = week[0].getFullYear() + "-" + fm(week[0].getMonth() + 1) + "-" + fm(week[0].getDate());
-        end = week[1].getFullYear() + "-" + fm(week[1].getMonth() + 1) + "-" + fm(week[1].getDate());
-    }
-    if (viewName == 'day') {
-        start = currentDate.getFullYear() + "-" + fm(currentDate.getMonth() + 1) + "-" + fm(currentDate.getDate());
-        end = currentDate.getFullYear() + "-" + fm(currentDate.getMonth() + 1) + "-" + fm(currentDate.getDate());
-    }
-    return {
-        "start": start,
-        "end": end,
-        "list": $('#example-post').val()
-    }
-}
-function getWeek(start) {
-    start = start || 0;
-    var day = currentDate.getDay() - start;
-    var date = currentDate.getDate() - day;
-    var StartDate = new Date(currentDate.setDate(date));
-    var EndDate = new Date(StartDate.getTime() + (6 * 24 * 3600000));
-    return [StartDate, EndDate];
-}
-function setText() {
-    var text = "";
-    if (viewName == 'month') {
-        text = currentDate.getFullYear() + "年" + fm(currentDate.getMonth() + 1) + "月";
-    }
-    if (viewName == 'week') {
-        var week = getWeek();
-        var start = week[0].getFullYear() + "年" + fm(week[0].getMonth() + 1) + "月" + fm(week[0].getDate()) + "日";
-        var end = week[1].getFullYear() + "年" + fm(week[1].getMonth() + 1) + "月" + fm(week[1].getDate()) + "日";
-        text = start + "～" + end;
-    }
-    if (viewName == 'day') {
-        text = currentDate.getFullYear() + "年" + fm(currentDate.getMonth() + 1) + "月" + fm(currentDate.getDate()) + "日";
-    }
-    $('#renderRange').text(text);
-    loadData();
 }
 function onClickMove(e) {
     var action = $(this).attr('data-action');
@@ -203,6 +243,7 @@ function onClickMove(e) {
     }
     setText();
 }
+
 function onClickMenu(e) {
     var action = $(this).attr('data-action');
     switch (action) {
@@ -220,6 +261,60 @@ function onClickMenu(e) {
     }
     currentDate = new Date();
     setText();
+}
+
+function setText() {
+    var text = "";
+    if (viewName == 'month') {
+        text = currentDate.getFullYear() + "年" + fm(currentDate.getMonth() + 1) + "月";
+    }
+    if (viewName == 'week') {
+        var week = getWeek();
+        var start = week[0].getFullYear() + "年" + fm(week[0].getMonth() + 1) + "月" + fm(week[0].getDate()) + "日";
+        var end = week[1].getFullYear() + "年" + fm(week[1].getMonth() + 1) + "月" + fm(week[1].getDate()) + "日";
+        text = start + "～" + end;
+    }
+    if (viewName == 'day') {
+        text = currentDate.getFullYear() + "年" + fm(currentDate.getMonth() + 1) + "月" + fm(currentDate.getDate()) + "日";
+    }
+    $('#renderRange').text(text);
+    loadData();
+}
+
+function fm(n) {
+    return n < 10 ? "0" + n : n;
+}
+function getWeek(start) {
+    start = start || 0;
+    var day = currentDate.getDay() - start;
+    var date = currentDate.getDate() - day;
+    var StartDate = new Date(currentDate.setDate(date));
+    var EndDate = new Date(StartDate.getTime() + (6 * 24 * 3600000));
+    return [StartDate, EndDate];
+}
+function getParam() {
+    var start = "";
+    var end = "";
+    if (viewName == 'month') {
+        var firstDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
+        start = firstDate.getFullYear() + "-" + fm(firstDate.getMonth() + 1) + "-" + fm(firstDate.getDate());
+        var lastDate = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
+        end = lastDate.getFullYear() + "-" + fm(lastDate.getMonth() + 1) + "-" + fm(lastDate.getDate());
+    }
+    if (viewName == 'week') {
+        var week = getWeek();
+        start = week[0].getFullYear() + "-" + fm(week[0].getMonth() + 1) + "-" + fm(week[0].getDate());
+        end = week[1].getFullYear() + "-" + fm(week[1].getMonth() + 1) + "-" + fm(week[1].getDate());
+    }
+    if (viewName == 'day') {
+        start = currentDate.getFullYear() + "-" + fm(currentDate.getMonth() + 1) + "-" + fm(currentDate.getDate());
+        end = currentDate.getFullYear() + "-" + fm(currentDate.getMonth() + 1) + "-" + fm(currentDate.getDate());
+    }
+    return {
+        "start": start,
+        "end": end,
+        "list": $('#example-post').val()
+    }
 }
 function fm(n) {
     return n < 10 ? "0" + n : n;
@@ -280,10 +375,10 @@ function drawChart1(dateArray) {
     }
     var options = {
         series: [{
-            name: '労働時間',
+            name: txtChart1,
             data: listwt
         }, {
-            name: '残業時間',
+            name: txtChart2,
             data: litot
         }],
         legend: {
@@ -354,10 +449,10 @@ function loadData() {
     var totalOverTime = 0;
     $('.gaia-argoui-app-index-pager-content').hide();
     $("#showRecord").html("");
-    $('.totalStaff').text("0人");
-    $(".totalOffTime").text(0 + "時間-" + 0 + "時間");
-    $(".totalWorkTime").text(0 + "時間");
-    $(".totalOverTime").text(0 + "時間");
+    $('.totalStaff').text("0"+txtPeople);
+    $(".totalOffTime").text(0 + txtHour+"-" + 0 + txtHour);
+    $(".totalWorkTime").text(0 + txtHour);
+    $(".totalOverTime").text(0 + txtHour);
     departments.forEach(dep => {
         dataStaffMaster.forEach(staff => {
             if (staff.department.value == dep)
@@ -487,7 +582,7 @@ function loadData() {
             tr.append($('<td class="ot">' + staffOT + '</td>'));
             tr.append($('<td class="offtime">' + staffOffTime + '</td>'));
             tr.append($(`<td class=\"chatworkid\" chatworkid=\"` + staffInfo.chatworkid.value + `\" ><i class="fas fa-eye"></i> </td>`));
-            tr.append($(`<td><button class="btn" onClick="downloadStaff(`+staffInfo.chatworkid.value +`)"><i class="fas fa-file-csv"></i></button></td>`))
+            tr.append($(`<td><button class="btn" onClick="downloadStaff(` + staffInfo.chatworkid.value + `)"><i class="fas fa-file-csv"></i></button></td>`))
         }
         else {
             tr.append($(`<td style="text-align:left;" class="stn">` + staffInfo.staffname.value + '</td>'));
@@ -496,7 +591,7 @@ function loadData() {
             tr.append($('<td class="ot">&nbsp-&nbsp</td>'));
             tr.append($('<td class="offtime">' + staffOffTime + '</td>'));
             tr.append($(`<td class=\"chatworkid\" chatworkid=\"` + staffInfo.chatworkid.value + `\" ><i class="fas fa-eye"></i> </td>`));
-            tr.append($(`<td><button class="btn" onClick="downloadStaff(`+staffInfo.chatworkid.value +`)"><i class="fas fa-file-csv"></i></button></td>`))
+            tr.append($(`<td><button class="btn" onClick="downloadStaff(` + staffInfo.chatworkid.value + `)"><i class="fas fa-file-csv"></i></button></td>`))
         }
         $('.fa-eye').off('click').on('click', function () {
             var chatworkid = $(this).parent('.chatworkid').attr('chatworkid');
@@ -505,9 +600,9 @@ function loadData() {
             var offtime = $(this).parents('tr').find(".offtime").text();
             viewDetail(chatworkid, wt, ot, offtime);
         });
-        $(".totalWorkTime").text(totalWorkTime + "時間")
-        $(".totalOverTime").text(totalOverTime + "時間")
-        $(".totalOffTime").text(totalOffTimeA + "時間-" + totalOffTimeB + "時間");
+        $(".totalWorkTime").text(totalWorkTime + txtHour)
+        $(".totalOverTime").text(totalOverTime + txtHour)
+        $(".totalOffTime").text(totalOffTimeA + "時間-" + totalOffTimeB + txtHour);
         $tb = $("#showRecord");
         $tb.append(tr);
         dataToExportStaff.sort((a, b) => {
@@ -591,11 +686,11 @@ function download() {
         startOff: "startOff",
         endOff: "startOff",
     };
-    var fileTitle = 'Report_'+startDate+"-"+endDate+"_"+departments;
+    var fileTitle = 'Report_' + startDate + "-" + endDate + "_" + departments;
 
     exportCSVFile(headers, dataToExport, fileTitle);
 }
-function downloadStaff(chatworkid){
+function downloadStaff(chatworkid) {
     var st = 1;
     var param = getParam();
     var startDate = new Date(param.start);
@@ -610,7 +705,7 @@ function downloadStaff(chatworkid){
         var itemDate = new Date(item.date.value)
         if ((item.chatworkid.value == chatworkid) && (itemDate >= startDate) && (itemDate <= endDate)) {
             dataExport.push({
-                stt:'',
+                stt: '',
                 chatworkid: staffInfo.chatworkid.value,
                 date: item.date.value,
                 staffname: staffInfo.staffname.value,
@@ -632,7 +727,7 @@ function downloadStaff(chatworkid){
         var itemDate = new Date(item.date.value)
         if ((item.chatworkid.value == chatworkid) && (itemDate >= startDate) && (itemDate <= endDate)) {
             dataExport.push({
-                stt:'',
+                stt: '',
                 chatworkid: staffInfo.chatworkid.value,
                 date: item.date.value,
                 staffname: staffInfo.staffname.value,
@@ -657,7 +752,7 @@ function downloadStaff(chatworkid){
         else
             return -1
     });
-    dataExport.forEach(item =>{
+    dataExport.forEach(item => {
         item.stt = st;
         st++;
     })
@@ -678,7 +773,7 @@ function downloadStaff(chatworkid){
         startOff: "startOff",
         endOff: "startOff",
     };
-    var fileTitle = 'Report_'+param.start+"-"+param.end+"_"+staffInfo.staffname.value;
+    var fileTitle = 'Report_' + param.start + "-" + param.end + "_" + staffInfo.staffname.value;
 
     exportCSVFile(headers, dataExport, fileTitle);
 }
@@ -708,9 +803,6 @@ function viewDetail(chatworkid, wt, ot, offtime) {
     })
     var detail = $('#detail');
     detail.html("");
-    var thu = [
-        "日", "月", "火", "水", "木", "金", "土"
-    ];
     $("#title").html(staffInfo.department.value + " -<span class='stn'> " + staffInfo.staffname.value + "</span> (Chatwork ID︰ " + chatworkid + ")"
         + " - [" + staffInfo.starttime.value + " ~ " + staffInfo.endtime.value + "]")
 
@@ -719,12 +811,12 @@ function viewDetail(chatworkid, wt, ot, offtime) {
     var enDay = end.toISOString().substring(0, 10);
     // thêm thông tin phụ
     var div = $('.infor');
-    div.html("労働時間︰ " + wt + ", 残業時間︰ " + ot + ", 休憩時間︰ " + offtime)
+    div.html(txtChart1+"︰ " + wt + ", "+txtChart2+"︰ " + ot + ", "+txtTtOff+"︰ " + offtime)
 
 
     var index = 0;
     for (var daye = start; daye <= end; daye.setDate(daye.getDate() + 1)) {
-        var tr = $('<div class="row divEdit" style="height: 40px;"></div>');
+        var tr = $('<div class="row divEdit"></div>');
         if ((daye.getDay()) == 6) {
             tr.addClass("sat");
         }
