@@ -20,9 +20,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $huongdan_cm = false;
     $overtime_cm = false;
     $logtime_cm  = false;
-    if (strpos($body, $leaveOff) > -1) {
-        $commandOK  = true;
-        $xinnghi_cm = true;
+
+    foreach ($leaveOff as $value) {
+        if (strpos($body, $value) > -1) {
+            $commandOK  = true;
+            $xinnghi_cm = true;
+        }
     }
     foreach ($start as $value) {
         if (strpos($body, $value) > -1) {
@@ -40,13 +43,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $commandOK   = true;
         $huongdan_cm = true;
     }
-    if (strpos($body, $ot) > -1) {
-        $commandOK   = true;
-        $overtime_cm = true;
+    foreach ($ot as $value) {
+        if (strpos($body, $value) > -1) {
+            $commandOK   = true;
+            $overtime_cm = true;
+        }
     }
-    if (strpos($body, $logtime) > -1) {
-        $commandOK  = true;
-        $logtime_cm = true;
+    foreach ($logtime as $value) {
+        if (strpos($body, $value) > -1) {
+            $commandOK  = true;
+            $logtime_cm = true;
+        }
     }
     if ($commandOK) {
         //==========================KIEM TRA USER TON TAI=======================================
@@ -60,11 +67,35 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
         //==========================XIN OVERTIME=======================================
         if ($overtime_cm) {
-            $x      = strpos($body, $ot);
-            $date   = substr($body, $x + 5, 10);
-            $start  = substr($body, $x + 16, 5);
-            $end    = substr($body, $x + 22, 5);
-            $reason = substr($body, $x + 28);
+            $date = "";
+            $start = "";
+            $end ="";
+            $type = "";
+            $reason = "";
+            foreach ($ot as $value) {
+                if (strpos($body, $value) > 0) {
+                    
+                    $x    = strpos($body, $value) + strlen($value) + 1;
+                    $date = substr($body, $x, 10);
+                    $x += 11;
+                    $start = substr($body, $x, 5);
+                    $x += 6;
+                    $end = substr($body, $x, 5);
+                    $x += 6;
+                    $lenghType1 = strlen($OTType['type1']);
+                    $lenghType2 = strlen($OTType['type2']);
+                    if (substr($body, $x, $lenghType1) == $OTType['type1']) {
+                        $type = $OTType['type1'];
+                        $x += $lenghType1 + 1;
+                    } else {
+                        $type = $OTType['type2'];
+                        $x += $lenghType2 + 1;
+                    }
+                    $reason = substr($body, $x);                    
+                    break;
+                    
+                }
+            }            
             date_default_timezone_set("Asia/Ho_Chi_Minh");
             $date_now   = date_create();
             $id         = date_format($date_now, "YmdHis") + "";
@@ -107,7 +138,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 }
             }
             //=================TAO RECORD OT=====================
-            $postFields = "{\r\n    \"app\":" . $OTApp['app'] . ",\r\n    \"record\":{\r\n        \"idfromdate\":{\r\n            \"value\":\"" . $id . "\"\r\n        },\r\n        \"date\":{\r\n            \"value\":\"" . $date . "\"\r\n        },\r\n        \"reason\":{\r\n            \"value\":\"" . $reason . "\"\r\n        },\r\n        \"chatworkid\":{\r\n            \"value\":\"" . $account . "\"\r\n        },\r\n        \"start\":{\r\n            \"value\":\"" . $start . "\"\r\n        },\r\n        \"end\":{\r\n            \"value\":\"" . $end . "\"\r\n        }\r\n    }\r\n}";
+            $postFields = "{\r\n    \"app\":" . $OTApp['app'] . ",\r\n    \"record\":{\r\n        \"idfromdate\":{\r\n            \"value\":\"" . $id . "\"\r\n        },\r\n        \"date\":{\r\n            \"value\":\"" . $date . "\"\r\n        },\r\n        \"reason\":{\r\n            \"value\":\"" . $reason . "\"\r\n        },\r\n        \"chatworkid\":{\r\n            \"value\":\"" . $account . "\"\r\n        },\r\n        \"start\":{\r\n            \"value\":\"" . $start . "\"\r\n        },\r\n        \"type\":{\r\n            \"value\":\"" . $type . "\"\r\n        },\r\n        \"end\":{\r\n            \"value\":\"" . $end . "\"\r\n        }\r\n    }\r\n}";
             $token      = $OTApp['apiToken'];
             $data       = postRecord($postFields, $token);
             $idcc       = $data['id'];
@@ -116,28 +147,48 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $body       = str_replace("start", $start, $body);
             $body       = str_replace("end", $end, $body);
             $body       = str_replace("id", $id, $body);
-            messageReply($body, $account, $roomReply, $message_id, $cwToken);
+            messageReply($body  , $account, $roomReply, $message_id, $cwToken);
             //=============THONG BAO CHO NGUOI DUYET=======
             messageTo($roomReply, $account, $adminCWId, $id, $OTApp['app'], $idcc, $cwToken);
             exit();
         }
         //==========================XIN NGHI=======================================
         if ($xinnghi_cm) {
-            $x      = strpos($body, $leaveOff);
-            $date   = substr($body, $x + 9, 10);
-            $reason = substr($body, $x + 19);
+            $date ="";
+            $type = "";
+            $reason = "";
+            foreach ($leaveOff as $value) {
+                if (strpos($body, $value) > 0) {
+                    
+                    $x    = strpos($body, $value) + strlen($value) + 1;
+                    $date = substr($body, $x, 10);
+                    $x += 11;
+                    $lenghType1 = strlen($offType ['type1']);
+                    $lenghType2 = strlen($offType ['type2']);
+                    if (substr($body, $x, $lenghType1) == $offType ['type1']) {
+                        $type = $offType ['type1'];
+                        $x += $lenghType1 + 1;
+                    } else {
+                        $type = $offType ['type2'];
+                        $x += $lenghType2 + 1;
+                    }
+                    
+                    $reason = substr($body, $x);     
+                    break;
+                    
+                }
+            }            
             date_default_timezone_set("Asia/Ho_Chi_Minh");
             $date_now   = date_create();
             $id         = date_format($date_now, "YmdHis") + "";
             //============TAO RECORD=============
-            $postFields = "{ \"app\": " . $leaveOffApp['app'] . ",\"record\":{\"chatworkid\": {\"value\": \"" . $account . "\"},\"idfromdate\":{\"value\":\"" . $id . "\"},\"date\":{\"value\":\"" . $date . "\"},\"reason\":{\"value\":\"" . $reason . "\"}\r\n}\r\n}";
-            $token      = $leaveOffApp['apiToken'];
+            $postFields = "{ \"app\": " . $leaveOffApp['app'] . ",\"record\":{\"chatworkid\": {\"value\": \"" . $account . "\"},\"idfromdate\":{\"value\":\"" . $id . "\"},\"date\":{\"value\":\"" . $date . "\"},\"type\":{\"value\":\"" . $type . "\"},\"reason\":{\"value\":\"" . $reason . "\"}\r\n}\r\n}";            $token      = $leaveOffApp['apiToken'];
             $data       = postRecord($postFields, $token);
             $idcc       = $data['id'];
             //=============TRA LOI NGUOI XIN NGHI==========
             $body       = $leaveOffSuccess;
             $body       = str_replace("id", $id, $body);
-            messageReply($body, $account, $roomReply, $message_id, $cwToken);
+            messageReply($body , $account, $roomReply, $message_id, $cwToken);
             //================THONG BAO CHO NGUOI DUYET====
             messageTo($roomReply, $account, $adminCWId, $id, $leaveOffApp['app'], $idcc, $cwToken);
             exit();
@@ -284,12 +335,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 'body' => '[To:' . $account . ']
 勤怠管理システムの使い方についてご説明いたします。
 対応コマンドは以下の通りです。:)
-[info][title]コマンド情報[/title][info]出勤した場合➝出勤/上班/ :) のいずれか
-退勤した場合➝退勤/下班/ (handshake) のいずれか
-休暇を取りたい場合➝[休暇] yyyy-MM-dd 理由
-残業を取りたい場合➝[OT] yyyy-MM-dd HH:mm~HH:mm 理由
-今月のログ時刻を見たいの場合➝ logtime
-そのた→ヘルプ表示
+[info][title]コマンド情報[/title][info]
+1.出勤した場合(CheckIn)➝In/出勤/上班/ :) のいずれか
+2.退勤した場合(CheckOut)➝Out/退勤/下班/ (handshake) のいずれか
+3.休暇を取りたい場合(Leave application)➝ Leave/休暇 yyyy-MM-dd 分類（Type)　理由(Reason)
+  ***** 分類（Type): 1- 有休(Annual leave)　 2- 振替休(Compensatory leave)  ***** 
+4.残業を取りたい場合(OT application)➝OT/残業 yyyy-MM-dd HH:mm~HH:mm 分類（Type)　理由
+  ***** 分類（Type): 1- 支払(Payment)　 2- 振替休(Compensatory leave)  ***** 
+5.今月タイムシート参照(Timesheet)➝ TS/タイムシート
+6.ヘルプ表示(Help)→そのた(Others)
 [/info]
 ■以下アプリ版のみ
 位置情報を送信すると以下の動作をおこないます。

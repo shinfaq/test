@@ -412,6 +412,7 @@ function drawChart1(dateArray) {
     chart.render();
 }
 function drawChart2() {
+    $('#chart2').html("")
     var options2 = {
         series: coutStaff,
         chart: {
@@ -944,9 +945,6 @@ function viewDetail(chatworkid, wt, ot, offtime) {
 
 
         detail.append(tr);
-
-
-
 
     }
 

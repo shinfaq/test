@@ -1,0 +1,79 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="form-group row">
+                <label class="col-form-label dropup dpm"></label>
+                <div class="dropup">
+                    <select id="brandsMulti" multiple size="3"></select>
+                </div>
+            </div>
+            <div class="row form-group">
+                <label class="col-form-label ttReport"></label>
+                <div id="menu-itemcc" class="btn-group btn-group-toggle " data-toggle="buttons">
+                    <label class="btn btn-secondary ">
+                        <input type="radio" name="options" id="option1" autocomplete="off"
+                            data-action="toggle-daily">
+                        <span class="opt1"></span>
+                    </label>
+                    <label class="btn btn-secondary">
+                        <input type="radio" name="options" id="option2" autocomplete="off"
+                            data-action="toggle-weekly">
+                        <span class="opt2"></span>
+                    </label>
+                    <label class="btn btn-secondary active">
+                        <input type="radio" name="options" id="option3" autocomplete="off" checked
+                            data-action="toggle-monthly">
+                        <span class="opt3"></span>
+                    </label>
+                </div>
+                <div class="btn-group dropup">
+                    <div id="menu-navicc" class="btn-group btn-group-toggle" style="margin-left: 20px;">
+                        <button type="button" class="btn btn-primary move-today" data-action="move-today"></button>
+                        <button type="button" class="btn btn-light move-day" data-action="move-prev">
+                            <i class="fas fa-arrow-left"></i>
+                        </button>
+                        <button type="button" class="btn btn-light show-datePickcc" data-action="show-pick">
+                            <i class="far fa-calendar-alt"></i>
+                            <input id="datePickcc" style="width: 1px; height: 1px; position: absolute;opacity: 0;">
+                        </button>
+                        <button type="button" class="btn btn-light move-day" data-action="move-next">
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+
+                    </div>
+                    <span id="dateRange" class="render-range"></span>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+		<div class="col-lg-12">
+			<div class="card">
+				<div class="card-header border-0 liststaff"> 
+				</div>
+				<div class="table-responsive">
+					<table class="table align-items-center table-flush">
+						<thead>
+							<tr>
+								<th style="width: 15%;" class="p4name"></th>
+								<th class="p4dpm"></th>
+								<th class="p4wt"></th>
+								<th class="p4ot"></th>
+								<th class="p4off"></th>
+								<th></th>
+								<th></th>
+							</tr>
+						</thead>
+						<tbody id="showRecord2">
+
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div id="loading">
+    <div id="loading-image" ></div>
+</div>

@@ -18,17 +18,20 @@
 						<div class="col-11 form-flex">
 							<div>
 								<div id="menu-item" class="btn-group btn-group-toggle" data-toggle="buttons">
-									<label class="btn btn-secondary opt1">
+									<label class="btn btn-secondary">
 										<input type="radio" name="options" id="option1" autocomplete="off"
-											data-action="toggle-daily"> 
+											data-action="toggle-daily">
+											<span class="opt1"></span> 
 									</label>
-									<label class="btn btn-secondary opt2">
+									<label class="btn btn-secondary">
 										<input type="radio" name="options" id="option2" autocomplete="off"
 											data-action="toggle-weekly"> 
+											<span class="opt2"></span>
 									</label>
-									<label class="btn btn-secondary active opt3">
+									<label class="btn btn-secondary active">
 										<input type="radio" name="options" id="option3" autocomplete="off" checked
 											data-action="toggle-monthly">
+											<span class="opt3"></span>
 									</label>
 								</div>
 
@@ -193,47 +196,39 @@
 		</div>
 	</div>
 </div>
-<!-- Modal -->
-<div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel"
-	aria-hidden="true">
-	<div class="modal-dialog modal-xl" role="document">
 
-		<div class="modal-content">
+<div class="myModal">
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="card">
+				<div class="close"><button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				  </button></i></div>
+				<div class="card-header border-0" id=title></div>
+				<div class="infor card-header border-0"></div>
 
-			<!-- PART 4-->
-			<div class="row">
-				<div class="col-lg-12">
-					<div class="card">
-						<div class="close"><button type="button" class="close" data-dismiss="modal" aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						  </button></i></div>
-						<div class="card-header border-0" id=title></div>
-						<div class="infor card-header border-0"></div>
-
-						<div class="table-responsive">
-							<div class="table container align-items-center table-flush">
-								<div class="row" style="margin-bottom: 15px;padding:10px 15px;">
-									<div class="col-md-2 col-sm-6 mdday"></div>
-									<div class="col-md-2 col-sm-6 mdtype"></div>
-									<div class="col-md-2 col-sm-6 mdstart"><i class="fa fa-sign-in" aria-hidden="true"></i> 
-									</div>
-									<div class="col-md-2 col-sm-6 mdend"><i class="fa fa-sign-out" aria-hidden="true"></i>
-										</div>
-									<div class="col-md-1 col-sm-3 mdrest"></div>
-									<div class="col-md-1 col-sm-3 mdwork"></div>
-									<div class="col-md-1 col-sm-3 mdot"></div>
-									<div class="col-md-1 col-sm-3"></div>
-								</div>
-								<div id="detail">
-								</div>
+				<div class="table-responsive">
+					<div class="table container align-items-center table-flush">
+						<div class="row" style="margin-bottom: 15px;padding:10px 15px;">
+							<div class="col-md-2 col-sm-6 mdday"></div>
+							<div class="col-md-2 col-sm-6 mdtype"></div>
+							<div class="col-md-2 col-sm-6 mdstart"><i class="fa fa-sign-in" aria-hidden="true"></i> 
 							</div>
+							<div class="col-md-2 col-sm-6 mdend"><i class="fa fa-sign-out" aria-hidden="true"></i>
+								</div>
+							<div class="col-md-1 col-sm-3 mdrest"></div>
+							<div class="col-md-1 col-sm-3 mdwork"></div>
+							<div class="col-md-1 col-sm-3 mdot"></div>
+							<div class="col-md-1 col-sm-3"></div>
+						</div>
+						<div id="detail">
 						</div>
 					</div>
 				</div>
 			</div>
-
 		</div>
 	</div>
+
 </div>
 <div id="loading">
     <div id="loading-image" ></div>
