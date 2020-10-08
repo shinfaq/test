@@ -1,0 +1,122 @@
+{
+    "5519694": {
+        "id": "5519694",
+        "label": "レコード番号",
+        "properties": {
+            "noLabel": "false",
+            "required": "true"
+        },
+        "type": "RECORD_ID",
+        "var": "id"
+    },
+    "5519695": {
+        "id": "5519695",
+        "label": "Updated by",
+        "properties": {
+            "noLabel": "false",
+            "required": "true"
+        },
+        "type": "MODIFIER",
+        "var": "Updated_by"
+    },
+    "5519696": {
+        "id": "5519696",
+        "label": "Created by",
+        "properties": {
+            "noLabel": "false",
+            "required": "true"
+        },
+        "type": "CREATOR",
+        "var": "Created_by"
+    },
+    "5519697": {
+        "id": "5519697",
+        "label": "Updated datetime",
+        "properties": {
+            "noLabel": "false",
+            "required": "true"
+        },
+        "type": "MODIFIED_AT",
+        "var": "Updated_datetime"
+    },
+    "5519698": {
+        "id": "5519698",
+        "label": "Created datetime",
+        "properties": {
+            "noLabel": "false",
+            "required": "true"
+        },
+        "type": "CREATED_AT",
+        "var": "Created_datetime"
+    },
+    "5519699": {
+        "id": "5519699",
+        "label": "Status",
+        "properties": {
+            "noLabel": "false",
+            "required": "false"
+        },
+        "type": "STATUS",
+        "var": "Status"
+    },
+    "5519700": {
+        "id": "5519700",
+        "label": "Assignee",
+        "properties": {
+            "noLabel": "false",
+            "required": "false"
+        },
+        "type": "STATUS_ASSIGNEE",
+        "var": "Assignee"
+    },
+    "5519701": {
+        "id": "5519701",
+        "label": "Categories",
+        "properties": {
+            "noLabel": "false",
+            "required": "false"
+        },
+        "type": "CATEGORY",
+        "var": "Categories"
+    },
+    "5519713": {
+        "id": "5519713",
+        "label": "シフト名",
+        "properties": {
+            "defaultValue": "",
+            "expression": "",
+            "hideExpression": "false",
+            "max": null,
+            "min": null,
+            "noLabel": "false",
+            "required": "false",
+            "unique": "false"
+        },
+        "type": "SINGLE_LINE_TEXT",
+        "var": "sessionworkname"
+    },
+    "5519714": {
+        "id": "5519714",
+        "label": "開始時刻",
+        "properties": {
+            "defaultExpression": null,
+            "defaultValue": null,
+            "noLabel": "false",
+            "required": "false"
+        },
+        "type": "TIME",
+        "var": "starttime"
+    },
+    "5519715": {
+        "id": "5519715",
+        "label": "終了時刻",
+        "properties": {
+            "defaultExpression": null,
+            "defaultValue": null,
+            "noLabel": "false",
+            "required": "false"
+        },
+        "type": "TIME",
+        "var": "endtime"
+    }
+}

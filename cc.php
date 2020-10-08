@@ -180,8 +180,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
             //==============OT QUA SO GIO===========
             if ($totalOT > $otHour) {
-                $body = $warningOTHour;
-                $body = str_replace("hour", $otHour, $body);
+                $body = "OT qua gio";
                 messageReply($body, $account, $roomReply, $message_id, $cwToken);
             }
             //=============THONG BAO CHO NGUOI DUYET=======
@@ -239,8 +238,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $data       = getRecord($postFields, $token);
             $totalOff   = count($data['records']);
             if ($totalOff > $offDay) {
-                $body = $warningOffDay;
-                $body = str_replace("day", $offDay, $body);
+                $body = "NGHI QUA NHIEU";
                 messageReply($body, $account, $roomReply, $message_id, $cwToken);
             }
             exit();
@@ -328,6 +326,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             //=============LAY RECORDS DIEM DANH CUA THANG====
             $lastdate   = date("Y-m-t", strtotime($date));
             $firstdate  = date("Y-m-01");
+            //==============LAY RECORD LOGTIME THANG HIEN TAI=========
+            $postFields = "{\r\n    \"app\":" . $timeSheetApp['app'] . ",\r\n    \"query\" : \"date>=\\\"" . $firstdate . "\\\" and chatworkid = \\\"" . $account . "\\\"and date<=\\\"" . $lastdate . "\\\" order by date asc \",\r\n    \"fields\": [\"starttime\", \"endtime\", \"date\", \"overtime\", \"worktime\"]\r\n\r\n}";
+            $token      = $timeSheetApp['apiToken'];
+            $data       = getRecord($postFields, $token);
+            $totalWork  = 0;
+            $listRecord = $data['records'];
+            foreach ($listRecord as $item) {
+                $strOT = $item['worktime']['value'];
+                $arrOT = explode(":", $strOT);
+                $totalWork += $arrOT[0] + $arrOT[1] / 60;
+            }
+            if ($totalWork > $workHour) {
+                $body = "lam QUA NHIEU";
+                messageReply($body, $account, $roomReply, $message_id, $cwToken);
+            }
             //==============LAY THON TIN DIEM DANH NGAY HOM DO MA CHUA CO ENDTIME
             $postFields = "{\r\n    \"app\":" . $timeSheetApp['app'] . ",\r\n    \"query\":\"(chatworkid = \\\"" . $account . "\\\") and (endtime=\\\"\\\") and (date = \\\"" . $date . "\\\")\",\r\n    \"fields\":[\"id\"]\r\n}";
             $token      = $timeSheetApp['apiToken'];
@@ -349,22 +362,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 //===========CANH BAO RA VE SOM==========
                 if ($strTime < $strEndTime && $dateType == "Normal") {
                     $body = $endEarlyWarning;
-                    messageReply($body, $account, $roomReply, $message_id, $cwToken);
-                }
-                //==============LAY RECORD LOGTIME THANG HIEN TAI=========
-                $postFields = "{\r\n    \"app\":" . $timeSheetApp['app'] . ",\r\n    \"query\" : \"date>=\\\"" . $firstdate . "\\\" and chatworkid = \\\"" . $account . "\\\"and date<=\\\"" . $lastdate . "\\\" order by date asc \",\r\n    \"fields\": [\"starttime\", \"endtime\", \"date\", \"overtime\", \"worktime\"]\r\n\r\n}";
-                $token      = $timeSheetApp['apiToken'];
-                $data       = getRecord($postFields, $token);
-                $totalWork  = 0;
-                $listRecord = $data['records'];
-                foreach ($listRecord as $item) {
-                    $strOT = $item['worktime']['value'];
-                    $arrOT = explode(":", $strOT);
-                    $totalWork += $arrOT[0] + $arrOT[1] / 60;
-                }
-                if ($totalWork > $workHour) {
-                    $body = $warningWorkHour;
-                    $body = str_replace("hour", $workHour, $body);
                     messageReply($body, $account, $roomReply, $message_id, $cwToken);
                 }
                 exit();
@@ -392,23 +389,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $body = $endEarlyWarning;
                     messageReply($body, $account, $roomReply, $message_id, $cwToken);
                 }
-                //==============LAY RECORD LOGTIME THANG HIEN TAI=========
-                $postFields = "{\r\n    \"app\":" . $timeSheetApp['app'] . ",\r\n    \"query\" : \"date>=\\\"" . $firstdate . "\\\" and chatworkid = \\\"" . $account . "\\\"and date<=\\\"" . $lastdate . "\\\" order by date asc \",\r\n    \"fields\": [\"starttime\", \"endtime\", \"date\", \"overtime\", \"worktime\"]\r\n\r\n}";
-                $token      = $timeSheetApp['apiToken'];
-                $data       = getRecord($postFields, $token);
-                $totalWork  = 0;
-                $listRecord = $data['records'];
-                foreach ($listRecord as $item) {
-                    $strOT = $item['worktime']['value'];
-                    $arrOT = explode(":", $strOT);
-                    $totalWork += $arrOT[0] + $arrOT[1] / 60;
-                }
-                if ($totalWork > $workHour) {
-                    $body = $warningWorkHour;
-                    $body = str_replace("hour", $workHour, $body);
-                    messageReply($body, $account, $roomReply, $message_id, $cwToken);
-                }
-                exit();
             } else {
                 //========THONG BAO HOM NAY CHUA DIEM DANH
                 $body = $notAttendanceToday;

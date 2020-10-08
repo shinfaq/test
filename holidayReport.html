@@ -1,61 +1,54 @@
 <h2 style="text-align: center;margin-top: 10px;" class="title"></h2>
 <div class="container-fluid text-center">
-    <div class="topOption">
-        <div class="col12">
-            <div class="rmv">
-                <div class="col2 txtYear"></div>
-                <div class="col2">
-                    <select name="" id="selectYear"></select>
+    <div class="topOption row">
+		<div class="col-4 col-sm-3 col-md-2">
+		    <div class="txtYear" style="float:left"></div>
+			<select name="" style="margin-left: 10px;" id="selectYear"></select>
+		</div>
+		<div class="col-4 col-sm-3 col-md-2">
+			<input type="radio" name="type" id="type1" value="type1" /><span  class="txtOption1"></span>
+			<input type="radio" style="margin-left: 10px;" checked name="type" id="type2"  class="txtOption2"  value="type2"/><span  class="txtOption2"></span>
+		</div>
+		<div class="col-4 col-sm-6 col-md-8">
+			<div class="txtRp" style="float:left"></div>
+            <div class="txtRpDay" style="float:left; margin-left: 10px;"></div>
+            <div class="d-none d-md-block d-lg-block d-xl-block" style="float: right;"><button class="btn btn-primary pdf" onclick="exportPDF()"></button></div>
+		</div>
+	</div>
+    <div id="pdfData">
+        <div class="row header">
+            <div class="col-12 row leftheader col-sm-3 pl-0 pr-0  ">
+                <div class="col-4 col-sm-4 txtName pl-0 pr-0"></div>
+                <div class="col-4 col-sm-4 txtDpm pl-0 pr-0"></div>
+                <div class="col-4 col-sm-4 txtStartWork pl-0 pr-0"></div>
+            </div>
+            <div class="col-12 leftheader  row col-sm-3  pl-0 pr-0">
+                <div class="col-4 txtWorkMonth pl-0 pr-0"></div>
+                <div class="col-4 txtOff pl-0 pr-0"></div>
+                <div class="col-4 txtOffUsed pl-0 pr-0"></div>
+            </div>
+            <div class="col-12 row col-sm-6  pl-0 pr-0">
+                <div class="col-12 row pl-0 pr-0">
+                    <div class="col-12 txtMonthly pl-0 pr-0"></div>
+                </div>
+                <div class="col-12 row clearfix months pl-0 pr-0">
+                    <div class="col-1 fisrt pl-0 pr-0">1月</div>
+                    <div class="col-1 pl-0 pr-0">2月</div>
+                    <div class="col-1 pl-0 pr-0">3月</div>
+                    <div class="col-1 pl-0 pr-0">4月</div>
+                    <div class="col-1 pl-0 pr-0">5月</div>
+                    <div class="col-1 pl-0 pr-0">6月</div>
+                    <div class="col-1 pl-0 pr-0">7月</div>
+                    <div class="col-1 pl-0 pr-0">8月</div>
+                    <div class="col-1 pl-0 pr-0">9月</div>
+                    <div class="col-1 pl-0 pr-0">10月</div>
+                    <div class="col-1 pl-0 pr-0">11月</div>
+                    <div class="col-1 pl-0 pr-0">12月</div>
                 </div>
             </div>
         </div>
-        <div class="col12">
-            <div class="rmv">
-                <div class="col2">
-                    <input type="radio" name="type" id="type1" value="type1" /><span  class="txtOption1"></span>
-                </div>
-                <div class="col2">
-                    <input type="radio" checked name="type" id="type2"  class="txtOption2"  value="type2"/><span  class="txtOption2"></span>
-                </div>
-            </div>
-        </div>
+        <div id="showData"></div>
     </div>
-    <div class="rp">
-        <div class="rmv">
-            <div class="col2 txtRp"></div>
-            <div class="col2 txtRpDay"></div>
-        </div>
-    </div>
-    <div class="rmv header">
-        <div class="col6 rmv aaa">
-            <div class="col3 txtName"></div>
-            <div class="col3 txtDpm"></div>
-            <div class="col3 txtStartWork"></div>
-            <div class="col1 txtWorkMonth"></div>
-            <div class="col1 txtOff"></div>
-            <div class="col1 txtOffUsed"></div>
-        </div>
-        <div class="col6 rmv cccc">
-            <div class="col12 rmv">
-                <div class="col12 txtMonthly"></div>
-            </div>
-            <div class="col12 rmv months">
-                <div class="col1 fisrt">1月</div>
-                <div class="col1">2月</div>
-                <div class="col1">3月</div>
-                <div class="col1">4月</div>
-                <div class="col1">5月</div>
-                <div class="col1">6月</div>
-                <div class="col1">7月</div>
-                <div class="col1">8月</div>
-                <div class="col1">9月</div>
-                <div class="col1">10月</div>
-                <div class="col1">11月</div>
-                <div class="col1">12月</div>
-            </div>
-        </div>
-    </div>
-    <div id="showData"></div>
 </div>
 <div id="loading">
     <div id="loading-image" ></div>

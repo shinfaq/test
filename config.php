@@ -58,4 +58,9 @@ $timeSheetApp = array(
     "apiToken" => "33bSe8mcrbRL6nwgIQR5OOcI2JTR5qHMARnIi6qW"
 );
 $adminCWId = "461435";
+$warningApp = array(
+    "app" => "5218",
+    "apiToken" => "uhnKWXxYrKzMVoOdCxfTtjbMC9HkBDKioHoqUro0"
+);
+
 ?>

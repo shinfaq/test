@@ -1,30 +1,9 @@
-var listAppId = {
-    AttendanceManagement: "5015",
-    DepartmentMaster: "5081",
-    HolidayMaster: "5073",
-    StaffMaster: "5017",
-    HolidayManagement: "5016",
-    ShiftMaster: "5013",
-};
-var listDepartment2 = [];
-var dataAttendanceManagement2 = [];
-var dataDepartmentMaster2 = [];
-var dataHolidayMaster2 = [];
-var dataStaffMaster2 = [];
-var dataHolidayManagement2 = [];
-var dataShiftMaster2 = [];
-var readyStaffMaster = false;
-var readyAttendanceManagement = false;
-var readyDepartmentMaster = false;
-var readyHolidayMaster = false;
-var readyHolidayManagement = false;
-var readyShiftMaster = false;
 var currentDate2 = new Date();
-var listId = Object.keys(cybozu.data.page.FORM_DATA.schema.table.fieldList);
+var listId = Object.keys(cybozu.data.page.FORM_DATA.schema.table.fieldList)
 $(document).ready(function () {
-    if (cybozu.data["LOGIN_USER"].locale == "en") {
+    if (cybozu.data['LOGIN_USER'].locale == 'en') {
         var listText = [
-            "レコード番号",
+            'レコード番号',
             "Updated by",
             "Created by",
             "Updated datetime",
@@ -32,10 +11,10 @@ $(document).ready(function () {
             "Status",
             "Assignee",
             "Categories",
-            "Chatwork ID",
-            "日付",
-            "社員名",
-            "出勤時刻",
+            'Chatwork ID',
+            '日付',
+            '社員名',
+            '出勤時刻',
             "退勤時刻",
             "労働時間",
             "休憩開始時刻",
@@ -53,7 +32,7 @@ $(document).ready(function () {
         ];
         for (let i = 0; i < listId.length; i++) {
             let lb = ".label-" + listId[i];
-            $(lb).find(".recordlist-header-label-gaia").text(listText[i]);
+            $(lb).find(".recordlist-header-label-gaia").text(listText[i])
         }
         $(".condition").text("検索条件");
         $(".dpm").text("部門");
@@ -88,48 +67,16 @@ $(document).ready(function () {
             prevText: "&#x3C;前",
             nextText: "次&#x3E;",
             currentText: "今日",
-            monthNames: [
-                "1月",
-                "2月",
-                "3月",
-                "4月",
-                "5月",
-                "6月",
-                "7月",
-                "8月",
-                "9月",
-                "10月",
-                "11月",
-                "12月",
-            ],
-            monthNamesShort: [
-                "1月",
-                "2月",
-                "3月",
-                "4月",
-                "5月",
-                "6月",
-                "7月",
-                "8月",
-                "9月",
-                "10月",
-                "11月",
-                "12月",
-            ],
-            dayNames: [
-                "日曜日",
-                "月曜日",
-                "火曜日",
-                "水曜日",
-                "木曜日",
-                "金曜日",
-                "土曜日",
-            ],
+            monthNames: ["1月", "2月", "3月", "4月", "5月", "6月",
+                "7月", "8月", "9月", "10月", "11月", "12月"],
+            monthNamesShort: ["1月", "2月", "3月", "4月", "5月", "6月",
+                "7月", "8月", "9月", "10月", "11月", "12月"],
+            dayNames: ["日曜日", "月曜日", "火曜日", "水曜日", "木曜日", "金曜日", "土曜日"],
             dayNamesShort: ["日", "月", "火", "水", "木", "金", "土"],
             dayNamesMin: ["日", "月", "火", "水", "木", "金", "土"],
             weekHeader: "週",
-            yearSuffix: "年",
-        };
+            yearSuffix: "年"
+        }
         txtDay = "日";
         txtYear = "年";
         txtMonth = "月";
@@ -138,16 +85,18 @@ $(document).ready(function () {
         txtPeople = "人";
         txtHour = "時間";
         txtTtOff = "休憩時間";
-        thu = ["日", "月", "火", "水", "木", "金", "土"];
-        $(".txtSearch").text("探す");
-        $(".mdReason").text("理由");
-        $(".dlcsv").text("csv");
-        $(".download").text("エクスポート");
-        $(".detail").text("詳細");
+        thu = [
+            "日", "月", "火", "水", "木", "金", "土"
+        ];
+        $('.txtSearch').text("探す")
+        $('.mdReason').text("理由")
+        $('.dlcsv').text("csv")
+        $('.download').text("エクスポート");
+        $('.detail').text("詳細")
     }
-    if (cybozu.data["LOGIN_USER"].locale == "ja") {
+    if (cybozu.data['LOGIN_USER'].locale == 'ja') {
         var listText = [
-            "レコード番号(jp)",
+            'レコード番号(jp)',
             "Updated by(jp)",
             "Created by(jp)",
             "Updated datetime(jp)",
@@ -155,10 +104,10 @@ $(document).ready(function () {
             "Status(jp)",
             "Assignee(jp)",
             "Categories(jp)",
-            "Chatwork ID(jp)",
-            "日付(jp)",
-            "社員名(jp)",
-            "出勤時刻(jp)",
+            'Chatwork ID(jp)',
+            '日付(jp)',
+            '社員名(jp)',
+            '出勤時刻(jp)',
             "退勤時刻(jp)",
             "労働時間(jp)",
             "休憩開始時刻(jp)",
@@ -173,10 +122,10 @@ $(document).ready(function () {
             "スタッフ情報(jp)",
             "出席情報(jp)",
             "Field group(jp)",
-        ];
+        ]
         for (let i = 0; i < listId.length; i++) {
             let lb = ".label-" + listId[i];
-            $(lb).find(".recordlist-header-label-gaia").text(listText[i]);
+            $(lb).find(".recordlist-header-label-gaia").text(listText[i])
         }
         $(".condition").text("検索条件(jp)");
         $(".dpm").text("部門(jp)");
@@ -211,48 +160,16 @@ $(document).ready(function () {
             prevText: "&#x3C;前",
             nextText: "次&#x3E;",
             currentText: "今日",
-            monthNames: [
-                "1月",
-                "2月",
-                "3月",
-                "4月",
-                "5月",
-                "6月",
-                "7月",
-                "8月",
-                "9月",
-                "10月",
-                "11月",
-                "12月",
-            ],
-            monthNamesShort: [
-                "1月",
-                "2月",
-                "3月",
-                "4月",
-                "5月",
-                "6月",
-                "7月",
-                "8月",
-                "9月",
-                "10月",
-                "11月",
-                "12月",
-            ],
-            dayNames: [
-                "日曜日",
-                "月曜日",
-                "火曜日",
-                "水曜日",
-                "木曜日",
-                "金曜日",
-                "土曜日",
-            ],
+            monthNames: ["1月", "2月", "3月", "4月", "5月", "6月",
+                "7月", "8月", "9月", "10月", "11月", "12月"],
+            monthNamesShort: ["1月", "2月", "3月", "4月", "5月", "6月",
+                "7月", "8月", "9月", "10月", "11月", "12月"],
+            dayNames: ["日曜日", "月曜日", "火曜日", "水曜日", "木曜日", "金曜日", "土曜日"],
             dayNamesShort: ["日", "月", "火", "水", "木", "金", "土"],
             dayNamesMin: ["日", "月", "火", "水", "木", "金", "土"],
             weekHeader: "週",
-            yearSuffix: "年",
-        };
+            yearSuffix: "年"
+        }
         txtDay = "日";
         txtYear = "年";
         txtMonth = "月";
@@ -261,60 +178,27 @@ $(document).ready(function () {
         txtPeople = "人";
         txtHour = "時間(jp)";
         txtTtOff = "休憩時間(jp)";
-        thu = ["日", "月", "火", "水", "木", "金", "土"];
-        $(".txtSearch").text("探す(jp)");
-        $(".mdReason").text("理由(jp)");
-        $(".dlcsv").text("csv(jp)");
-        $(".download").text("エクスポート(jp)");
-        $(".detail").text("詳細(jp)");
+        thu = [
+            "日", "月", "火", "水", "木", "金", "土"
+        ];
+        $('.txtSearch').text("探す(jp)")
+        $('.mdReason').text("理由(jp)")
+        $('.dlcsv').text("csv(jp)")
+        $('.download').text("エクスポート(jp)");
+        $('.detail').text("詳細(jp)")
     }
-    getDefaultData()
     interval2 = setInterval(() => {
-        if (
-            readyShiftMaster &&
-            readyHolidayMaster &&
-            readyStaffMaster &&
-            readyDepartmentMaster
-        ) {
+        if (ready1 && ready2 && ready3 && ready4 && ready5) {
+            $('#loading').hide();
             clearInterval(interval2);
             clearInterval(interval);
             setDefault2();
+            setText2();
         }
     }, 100);
 
-    $("body").removeClass("body-top");
+    $('body').removeClass('body-top');
 });
-function getDefaultData() {
-    fetchRecords2(listAppId.ShiftMaster).then(function (records) {
-        dataShiftMaster2 = records;
-        readyShiftMaster = true;
-    });
-    fetchRecords2(listAppId.HolidayMaster).then(function (records) {
-        dataHolidayMaster2 = records;
-        readyHolidayMaster = true;
-    });
-    fetchRecords2(listAppId.StaffMaster).then(function (records) {
-        dataStaffMaster2 = records;
-        readyStaffMaster = true;
-    });
-    fetchRecords2(listAppId.DepartmentMaster).then(function (records) {
-        dataDepartmentMaster2 = records;
-        readyDepartmentMaster = true;
-    });
-}
-function fetchRecords2(appId, opt_offset, opt_limit, opt_records) {
-    var offset = opt_offset || 0;
-    var limit = opt_limit || 100;
-    var allRecords = opt_records || [];
-    var params = { app: appId, query: "limit " + limit + " offset " + offset };
-    return kintone.api("/k/v1/records", "GET", params).then(function (resp) {
-        allRecords = allRecords.concat(resp.records);
-        if (resp.records.length === limit) {
-            return fetchRecords2(appId, offset + limit, limit, allRecords);
-        }
-        return allRecords;
-    });
-}
 function getParam2() {
     var start = "";
     var end = "";
@@ -343,7 +227,7 @@ function getParam2() {
             fm(lastDate.getDate());
     }
     if (viewName == "week") {
-        var week = getWeek2();
+        var week = getWeek();
         start =
             week[0].getFullYear() +
             "-" +
@@ -377,14 +261,6 @@ function getParam2() {
         list: $("#brandsMulti").val(),
     };
 }
-function getWeek2(start) {
-    start = start || 0;
-    var day = currentDate2.getDay() - start;
-    var date = currentDate2.getDate() - day;
-    var StartDate = new Date(currentDate2.setDate(date));
-    var EndDate = new Date(StartDate.getTime() + (6 * 24 * 3600000));
-    return [StartDate, EndDate];
-}
 function setDefault2() {
     var year = new Date().getFullYear();
     $("#datePickcc").datepicker({
@@ -392,7 +268,7 @@ function setDefault2() {
         changeYear: true,
         onSelect: function (date) {
             currentDate2 = new Date(date);
-            setText2()
+            setText2();
         },
         maxDate: new Date(year, 11, 31),
     });
@@ -402,19 +278,17 @@ function setDefault2() {
     $("#menu-navicc button").on("click", onClickMove2);
     $("#menu-itemcc input").on("click", onClickMenu2);
     let select2 = document.getElementById("brandsMulti");
-    dataDepartmentMaster2.forEach((item) => {
-        listDepartment2.push(item.name.value);
+    dataDepartmentMaster.forEach((item) => {
         var option = document.createElement("option");
-        option.value = item.name.value;
-        option.text = item.name.value;
+        option.value = item.name.value
+        option.text = item.name.value
         select2.appendChild(option);
     });
     let cccc = new vanillaSelectBox("#brandsMulti");
-    setText2()
-    Search();
+    setText2();
 }
 function setText2() {
-    $("#dateRange").text("");
+    var text = "";
     if (viewName == "month") {
         text =
             currentDate2.getFullYear() +
@@ -423,8 +297,7 @@ function setText2() {
             "月";
     }
     if (viewName == "week") {
-        var week = getWeek2();
-        console.log(week);
+        var week = getWeek();
         var start =
             week[0].getFullYear() +
             "年" +
@@ -451,50 +324,7 @@ function setText2() {
             "日";
     }
     $("#dateRange").text(text);
-}
-function Search() {
-    dataAttendanceManagement2 = [];
-    dataHolidayManagement2 = [];
-    readyAttendanceManagement = false;
-    readyHolidayManagement = false;
-    $("#loading").show();
-    var param = getParam2();
-    var startDate = param.start;
-    var endDate = param.end;
-    var departments = param.list.length == 0 ? listDepartment2 : param.list;
-    var text = "";
-
-    fetchRecordsFromTo(
-        listAppId.AttendanceManagement,
-        startDate,
-        endDate,
-        departments
-    ).then(function (records) {
-        dataAttendanceManagement2 = records;
-        readyAttendanceManagement = true;
-    });
-    fetchRecordsFromTo(
-        listAppId.HolidayManagement,
-        startDate,
-        endDate
-    ).then(function (records) {
-        dataHolidayManagement2 = records;
-        readyHolidayManagement = true;
-    });
-    interval3 = setInterval(() => {
-        if (
-            readyShiftMaster &&
-            readyHolidayMaster &&
-            readyStaffMaster &&
-            readyDepartmentMaster &&
-            readyHolidayManagement &&
-            readyAttendanceManagement
-        ) {
-            $("#loading").hide();
-            clearInterval(interval3);
-            loadData2(startDate, endDate, departments);
-        }
-    }, 100);
+    loadData2();
 }
 function onClickMove2(e) {
     var action = $(this).attr("data-action");
@@ -506,7 +336,7 @@ function onClickMove2(e) {
             currentDate2.setMonth(currentDate2.getMonth() + 1);
         }
         if (viewName == "week") {
-            currentDate2.setTime(currentDate2.getTime() + (7 * 24 * 3600000));
+            currentDate2.setTime(currentDate2.getTime() + 7 * 24 * 3600000);
         }
         if (viewName == "day") {
             currentDate2.setTime(currentDate2.getTime() + 1 * 24 * 3600000);
@@ -526,10 +356,9 @@ function onClickMove2(e) {
     if (action == "move-today") {
         currentDate2 = new Date();
     }
-    setText2()
+    setText2();
 }
 function onClickMenu2(e) {
-    console.log(currentDate2);
     var action = $(this).attr("data-action");
     switch (action) {
         case "toggle-daily":
@@ -544,78 +373,32 @@ function onClickMenu2(e) {
         default:
             break;
     }
-    setText2()
-}
-function fetchRecordsFromTo(
-    appId,
-    from,
-    to,
-    dep,
-    opt_offset,
-    opt_limit,
-    opt_records
-) {
-    var strListDepartment = "";
-    if (dep) {
-        strListDepartment = "and department in (";
-        for (let i = 0; i < dep.length - 1; i++)
-            strListDepartment += '"' + dep[i] + '",';
-        strListDepartment += '"' + dep[dep.length - 1] + '")';
-    }
-    var offset = opt_offset || 0;
-    var limit = opt_limit || 100;
-    var allRecords = opt_records || [];
-    var params = {
-        app: appId,
-        query:
-            'date<="' +
-            to +
-            '" and date>="' +
-            from +
-            '" ' + strListDepartment + ' limit ' +
-            limit +
-            " offset " +
-            offset,
-    };
-    return kintone.api("/k/v1/records", "GET", params).then(function (resp) {
-        allRecords = allRecords.concat(resp.records);
-        if (resp.records.length === limit) {
-            return fetchRecordsFromTo(
-                appId,
-                from,
-                to,
-                dep,
-                offset + limit,
-                limit,
-                allRecords
-            );
-        } else ready = true;
-        return allRecords;
-    });
+    currentDate2 = new Date();
+    setText2();
 }
 function download2() {
     var param = getParam2();
     var startDate = param.start;
     var endDate = param.end;
-    var departments = param.list.length == 0 ? listDepartment2 : param.list;
+    var departments = (param.list.length == 0) ? listDepartment : param.list;
     var headers = {
-        stt: "STT",
-        chatworkid: "chatworkid",
-        date: "date",
-        staffname: "staffname",
-        department: "department",
-        sessionbegintime: "sessionbegintime",
-        sessionendtime: "sessionendtime",
-        starttime: "starttime",
-        endtime: "endtime",
-        worktime: "worktime",
-        overtime: "overtime",
+        stt: 'STT',
+        chatworkid: 'chatworkid',
+        date: 'date',
+        staffname: 'staffname',
+        department: 'department',
+        sessionbegintime: 'sessionbegintime',
+        sessionendtime: 'sessionendtime',
+        starttime: 'starttime',
+        endtime: 'endtime',
+        worktime: 'worktime',
+        overtime: 'overtime',
         reason: "reason",
         offType: "offType",
         startOff: "startOff",
         endOff: "startOff",
     };
-    var fileTitle = "Report_" + startDate + "-" + endDate + "_" + departments;
+    var fileTitle = 'Report_' + startDate + "-" + endDate + "_" + departments;
 
     exportCSVFile(headers, dataToExport, fileTitle);
 }
@@ -624,20 +407,17 @@ function downloadStaff2(chatworkid) {
     var param = getParam2();
     var startDate = new Date(param.start);
     var endDate = new Date(param.end);
-    var dataExport = [];
+    var dataExport = []
     var staffInfo = null;
-    dataStaffMaster2.forEach((item) => {
-        if (item.chatworkid.value == chatworkid) staffInfo = item;
+    dataStaffMaster.forEach(item => {
+        if (item.chatworkid.value == chatworkid)
+            staffInfo = item;
     });
-    dataAttendanceManagement2.forEach((item) => {
-        var itemDate = new Date(item.date.value);
-        if (
-            item.chatworkid.value == chatworkid &&
-            itemDate >= startDate &&
-            itemDate <= endDate
-        ) {
+    dataAttendanceManagement.forEach(item => {
+        var itemDate = new Date(item.date.value)
+        if ((item.chatworkid.value == chatworkid) && (itemDate >= startDate) && (itemDate <= endDate)) {
             dataExport.push({
-                stt: "",
+                stt: '',
                 chatworkid: staffInfo.chatworkid.value,
                 date: item.date.value,
                 staffname: staffInfo.staffname.value,
@@ -652,18 +432,14 @@ function downloadStaff2(chatworkid) {
                 offType: "",
                 startOff: "",
                 endOff: "",
-            });
+            })
         }
-    });
-    dataHolidayManagement2.forEach((item) => {
-        var itemDate = new Date(item.date.value);
-        if (
-            item.chatworkid.value == chatworkid &&
-            itemDate >= startDate &&
-            itemDate <= endDate
-        ) {
+    })
+    dataHolidayManagement.forEach(item => {
+        var itemDate = new Date(item.date.value)
+        if ((item.chatworkid.value == chatworkid) && (itemDate >= startDate) && (itemDate <= endDate)) {
             dataExport.push({
-                stt: "",
+                stt: '',
                 chatworkid: staffInfo.chatworkid.value,
                 date: item.date.value,
                 staffname: staffInfo.staffname.value,
@@ -678,50 +454,50 @@ function downloadStaff2(chatworkid) {
                 offType: "",
                 startOff: "",
                 endOff: "",
-            });
+            })
         }
-    });
+
+    })
     dataExport.sort((a, b) => {
-        if (a.date > b.date) return 1;
-        else return -1;
+        if (a.date > b.date)
+            return 1;
+        else
+            return -1
     });
-    dataExport.forEach((item) => {
+    dataExport.forEach(item => {
         item.stt = st;
         st++;
-    });
+    })
     var headers = {
-        stt: "STT",
-        chatworkid: "chatworkid",
-        date: "date",
-        staffname: "staffname",
-        department: "department",
-        sessionbegintime: "sessionbegintime",
-        sessionendtime: "sessionendtime",
-        starttime: "starttime",
-        endtime: "endtime",
-        worktime: "worktime",
-        overtime: "overtime",
+        stt: 'STT',
+        chatworkid: 'chatworkid',
+        date: 'date',
+        staffname: 'staffname',
+        department: 'department',
+        sessionbegintime: 'sessionbegintime',
+        sessionendtime: 'sessionendtime',
+        starttime: 'starttime',
+        endtime: 'endtime',
+        worktime: 'worktime',
+        overtime: 'overtime',
         reason: "reason",
         offType: "offType",
         startOff: "startOff",
         endOff: "startOff",
     };
-    var fileTitle =
-        "Report_" +
-        param.start +
-        "-" +
-        param.end +
-        "_" +
-        staffInfo.staffname.value;
+    var fileTitle = 'Report_' + param.start + "-" + param.end + "_" + staffInfo.staffname.value;
 
     exportCSVFile(headers, dataExport, fileTitle);
 }
-function loadData2(startDate, endDate, departments) {
+function loadData2() {
     dataToExport = [];
     $("#showRecord2").html("");
     var listStaff2 = [];
+    var param = getParam2();
+    var startDate = new Date(param.start);
+    var endDate = new Date(param.end);
     var dateArray = [];
-
+    var departments = param.list.length == 0 ? listDepartment : param.list;
     var totalOffTimeA = 0;
     var totalOffTimeB = 0;
     var totalWorkTime = 0;
@@ -733,7 +509,7 @@ function loadData2(startDate, endDate, departments) {
     $(".totalWorkTime").text(0 + txtHour);
     $(".totalOverTime").text(0 + txtHour);
     departments.forEach((dep) => {
-        dataStaffMaster2.forEach((staff) => {
+        dataStaffMaster.forEach((staff) => {
             if (staff.department.value == dep)
                 listStaff2.push(staff.chatworkid.value);
         });
@@ -755,7 +531,7 @@ function loadData2(startDate, endDate, departments) {
         var staffOT = 0;
         var staffShift = 0;
         var staffOffTime = 0;
-        dataStaffMaster2.forEach((item) => {
+        dataStaffMaster.forEach((item) => {
             if (item.chatworkid.value == staff) staffInfo = item;
         });
         var staffShiftEndStr = staffInfo.endtime.value;
@@ -765,10 +541,15 @@ function loadData2(startDate, endDate, departments) {
         var arrEnd = staffShiftEndStr.split(":");
         var endShitf = parseInt(arrEnd[0]) + parseInt(arrEnd[1]) / 60;
         staffShift = endShitf - startShift > 8 ? 8 : endShitf - startShift;
-        dataAttendanceManagement2.forEach((item) => {
+        dataAttendanceManagement.forEach((item) => {
             var itemWorkTime = 0;
             var itemOT = 0;
-            if (item.chatworkid.value == staff) {
+            var itemDate = new Date(item.date.value);
+            if (
+                item.chatworkid.value == staff &&
+                itemDate >= startDate &&
+                itemDate <= endDate
+            ) {
                 dataToExportStaff.push({
                     stt: stt,
                     chatworkid: staffInfo.chatworkid.value,
@@ -785,7 +566,7 @@ function loadData2(startDate, endDate, departments) {
                     offType: "",
                     startOff: "",
                     endOff: "",
-                });
+                })
                 stt++;
                 staffAttendanceData.push(item);
                 let strWorkTime = item.worktime.value;
@@ -808,8 +589,13 @@ function loadData2(startDate, endDate, departments) {
             stafflWorkTime += itemWorkTime;
             staffOT += itemOT;
         });
-        dataHolidayManagement2.forEach((item) => {
-            if (item.chatworkid.value == staff) {
+        dataHolidayManagement.forEach((item) => {
+            var itemDate = new Date(item.date.value);
+            if (
+                item.chatworkid.value == staff &&
+                itemDate >= startDate &&
+                itemDate <= endDate
+            ) {
                 dataToExportStaff.push({
                     stt: stt,
                     chatworkid: staffInfo.chatworkid.value,
@@ -826,7 +612,7 @@ function loadData2(startDate, endDate, departments) {
                     offType: "",
                     startOff: "",
                     endOff: "",
-                });
+                })
                 stt++;
                 staffLeaveOffData.push(item);
             }
@@ -844,81 +630,51 @@ function loadData2(startDate, endDate, departments) {
             tr.append(
                 $(
                     `<div style="text-align:left;" class="stn col-2  pl-0 pr-0 bd">` +
-                        staffInfo.staffname.value +
+                    staffInfo.staffname.value +
                     "</div>"
                 )
             );
-            tr.append(
-                $(
-                    "<div class='col-2  pl-0 pr-0 bd'>" +
-                    staffInfo.department.value +
-                    "</div>"
-                )
-            );
-            divcc = $("<div class='col-5  pl-0 pr-0 row bd'></div>");
-            divcc.append(
-                $('<div class="wt col-4 bdr">' + stafflWorkTime + "</div>")
-            );
+            tr.append($("<div class='col-2  pl-0 pr-0 bd'>" + staffInfo.department.value + "</div>"));
+            divcc = $("<div class='col-5  pl-0 pr-0 row bd'></div>")
+            divcc.append($('<div class="wt col-4 bdr">' + stafflWorkTime + "</div>"));
             divcc.append($('<div class="ot col-4 bdr">' + staffOT + "</div>"));
-            divcc.append(
-                $('<div class="offtime col-4">' + staffOffTime + "</div>")
-            );
-            tr.append(divcc);
-            var div = $("<div class='col-3  pl-0 pr-0 row bd'></div>");
-            div.append(
-                $(
-                    `<div class='col-6  pl-0 pr-0 bdr'><a href="javascript:void(0)" onClick="downloadStaff2(` +
-                    staffInfo.chatworkid.value +
-                    `)">csv</a></div>`
-                )
-            );
+            divcc.append($('<div class="offtime col-4">' + staffOffTime + "</div>"));
+            tr.append(divcc)
+            var div = $("<div class='col-3  pl-0 pr-0 row bd'></div>")
+            div.append($(`<div class='col-6  pl-0 pr-0 bdr'><a href="javascript:void(0)" onClick="downloadStaff2(` + staffInfo.chatworkid.value + `)">csv</a></div>`))
             div.append(
                 $(
                     `<div class="chatworkid col-6  pl-0 pr-0" chatworkid=\"` +
-                        staffInfo.chatworkid.value +
+                    staffInfo.chatworkid.value +
                     `\" ><i class="fas fa-caret-down"></i><i style="display:none" class="fas fa-caret-up"></i> </div>`
                 )
             );
-            tr.append(div);
+            tr.append(div)
         } else {
             tr.append(
                 $(
                     `<div style="text-align:left;" class="stn col-2  pl-0 pr-0 bd">` +
-                        staffInfo.staffname.value +
+                    staffInfo.staffname.value +
                     "</div>"
                 )
             );
 
-            tr.append(
-                $(
-                    "<div class='col-2  pl-0 pr-0 bd'>" +
-                    staffInfo.department.value +
-                    "</div>"
-                )
-            );
-            divcc = $("<div class='col-5  pl-0 pr-0 row bd'></div>");
+            tr.append($("<div class='col-2  pl-0 pr-0 bd'>" + staffInfo.department.value + "</div>"));
+            divcc = $("<div class='col-5  pl-0 pr-0 row bd'></div>")
             divcc.append($('<div class="wt col-4 bdr">&nbsp-&nbsp</div>'));
             divcc.append($('<div class="ot col-4 bdr">&nbsp-&nbsp</div>'));
-            divcc.append(
-                $('<div class="offtime col-4">' + staffOffTime + "</div>")
-            );
-            tr.append(divcc);
-            var div = $("<div class='col-3  pl-0 pr-0 row bd'></div>");
-            div.append(
-                $(
-                    `<div class='col-6  pl-0 pr-0 bdr'><a href="javascript:void(0)" onClick="downloadStaff2(` +
-                    staffInfo.chatworkid.value +
-                    `)">csv</a></div>`
-                )
-            );
+            divcc.append($('<div class="offtime col-4">' + staffOffTime + "</div>"));
+            tr.append(divcc)
+            var div = $("<div class='col-3  pl-0 pr-0 row bd'></div>")
+            div.append($(`<div class='col-6  pl-0 pr-0 bdr'><a href="javascript:void(0)" onClick="downloadStaff2(` + staffInfo.chatworkid.value + `)">csv</a></div>`))
             div.append(
                 $(
                     `<div class="chatworkid col-6  pl-0 pr-0" chatworkid=\"` +
-                        staffInfo.chatworkid.value +
+                    staffInfo.chatworkid.value +
                     `\" ><i class="fas fa-caret-down"></i><i style="display:none" class="fas fa-caret-up"></i> </div>`
                 )
             );
-            tr.append(div);
+            tr.append(div)
         }
         $(".fa-caret-down")
             .off("click")
@@ -942,18 +698,24 @@ function loadData2(startDate, endDate, departments) {
                 $(this).parent(".chatworkid").find(".fa-caret-down").show();
                 $(this).parent(".chatworkid").find(".fa-caret-up").hide();
 
-                $(this).parents(".data").next().hide();
+                $(this).parents('.data').next().hide();
             });
         dataToExportStaff.sort((a, b) => {
-            if (a.date > b.date) return 1;
-            else return -1;
+            if (a.date > b.date)
+                return 1;
+            else
+                return -1
         });
         dataToExport = dataToExport.concat(dataToExportStaff);
     });
 }
+function Search() {
+    // setText2();
+
+}
 function viewDetail2($tr, chatworkid) {
-    $tr.find(".fa-caret-down").hide();
-    $tr.find(".fa-caret-up").show();
+    $tr.find('.fa-caret-down').hide();
+    $tr.find('.fa-caret-up').show();
     $table = $("<div class=''></div>");
     var param = getParam2();
     var attendanceData = [];
@@ -961,10 +723,10 @@ function viewDetail2($tr, chatworkid) {
     var start = new Date(param.start);
     var end = new Date(param.end);
     var staffInfo = null;
-    dataStaffMaster2.forEach((item) => {
+    dataStaffMaster.forEach((item) => {
         if (item.chatworkid.value == chatworkid) staffInfo = item;
     });
-    dataAttendanceManagement2.forEach((item) => {
+    dataAttendanceManagement.forEach((item) => {
         var itemDate = new Date(item.date.value);
         if (
             item.chatworkid.value == chatworkid &&
@@ -974,7 +736,7 @@ function viewDetail2($tr, chatworkid) {
             attendanceData.push(item);
         }
     });
-    dataHolidayManagement2.forEach((item) => {
+    dataHolidayManagement.forEach((item) => {
         var itemDate = new Date(item.date.value);
         if (
             item.chatworkid.value == chatworkid &&
@@ -1001,24 +763,22 @@ function viewDetail2($tr, chatworkid) {
         }
         index++;
         var check = false;
-        tr.append(
-            `<div class="d-block bgnew text-white d-sm-none col-3  pl-0 pr-0 mdday"></div>`
-        );
+        tr.append(`<div class="d-block bgnew text-white d-sm-none col-3  pl-0 pr-0 mdday"></div>`)
         var datec = daye.toISOString().substring(0, 10);
-        if (dataHolidayMaster2.length > 0) {
-            dataHolidayMaster2.forEach((item) => {
+        if (dataHolidayMaster.length > 0) {
+            dataHolidayMaster.forEach((item) => {
                 // nếu là ngày nghỉ lễ
                 if (item.date.value == datec) {
                     tr.append(
                         $(
                             '<div class="first holiday col-md-2 col-9 col-sm-6">' +
-                                fm(daye.getMonth() + 1) +
-                                "/" +
-                                fm(daye.getDate()) +
-                                " (" +
-                                thu[daye.getDay()] +
-                                ") </br><span style='font-size:12px;color:red;'>(" +
-                                item.description.value +
+                            fm(daye.getMonth() + 1) +
+                            "/" +
+                            fm(daye.getDate()) +
+                            " (" +
+                            thu[daye.getDay()] +
+                            ") </br><span style='font-size:12px;color:red;'>(" +
+                            item.description.value +
                             ")</span></div>"
                         )
                     );
@@ -1031,13 +791,13 @@ function viewDetail2($tr, chatworkid) {
             tr.append(
                 $(
                     '<div class="first col-md-2 col-9 col-sm-6">' +
-                        fm(daye.getMonth() + 1) +
-                        "/" +
-                        fm(daye.getDate()) +
-                        " (" +
-                        thu[daye.getDay()] +
-                        ")" +
-                        "</div>"
+                    fm(daye.getMonth() + 1) +
+                    "/" +
+                    fm(daye.getDate()) +
+                    " (" +
+                    thu[daye.getDay()] +
+                    ")" +
+                    "</div>"
                 )
             );
 
@@ -1071,48 +831,36 @@ function viewDetail2($tr, chatworkid) {
         if (obj !== null) {
             // ngày xin nghỉ phép
             if (obj.reason != null) {
-                tr.append(
-                    `<div class="d-block bgnew text-white d-sm-none col-3  pl-0 pr-0 mdtype col-sm-6"></div>`
-                );
+                tr.append(`<div class="d-block bgnew text-white d-sm-none col-3  pl-0 pr-0 mdtype col-sm-6"></div>`)
                 tr.append(
                     $(
                         '<div class="col-md-2 col-9 col-sm-6">' +
-                            `<span class="badge gradient-bloody text-white shadow">Off</span>` +
-                            "</div>"
+                        `<span class="badge gradient-bloody text-white shadow">Off</span>` +
+                        "</div>"
                     )
                 );
-                tr.append(
-                    `<div class="d-block bgnew text-white d-sm-none col-3  pl-0 pr-0 mdReason "></div>`
-                );
+                tr.append(`<div class="d-block bgnew text-white d-sm-none col-3  pl-0 pr-0 mdReason "></div>`)
                 tr.append(
                     $(
                         '<div class="reason col-md-7 col-9 col-sm-12">' +
-                            obj.reason.value +
-                            "</div>"
+                        obj.reason.value +
+                        "</div>"
                     )
                 );
-                tr.append(
-                    `<div class="d-block bgnew divEnd text-white d-sm-none col-3  pl-0 pr-0"></div>`
-                );
+                tr.append(`<div class="d-block bgnew divEnd text-white d-sm-none col-3  pl-0 pr-0"></div>`)
                 tr.append(
                     $(
                         '<div class="col-md-1 col-9 col-sm-12">' +
                         '<i class="fa fa-pencil trung-pencil" aria-hidden="true"></i><i class="fa fa-save trung-save" style="display:none"></i>' +
-                            "</div>"
-                    )
-                );
-                tr.append(
-                    $(
-                        '<div class="enddiv" style="display:none">' +
-                        obj.$id.value +
                         "</div>"
                     )
                 );
+                tr.append(
+                    $('<div class="enddiv" style="display:none">' + obj.$id.value + "</div>")
+                );
             } // làm việc bth
             else {
-                tr.append(
-                    `<div class="d-block bgnew text-white d-sm-none col-3  pl-0 pr-0 mdtype"></div>`
-                );
+                tr.append(`<div class="d-block bgnew text-white d-sm-none col-3  pl-0 pr-0 mdtype"></div>`)
                 var otHour = 0;
                 var checkot = "";
                 var checkfull = "hidden";
@@ -1150,84 +898,68 @@ function viewDetail2($tr, chatworkid) {
                 tr.append(
                     $(
                         '<div class="col-md-2 col-9 col-sm-6">' +
-                            `<span ` +
-                            normal +
+                        `<span ` +
+                        normal +
                         ` class="badge gradient-quepal text-white shadow">Normal</span>
                         <span ` +
-                            checkfull +
+                        checkfull +
                         ` class="badge notfull text-white shadow">Not Full</span>
                         <span  ` +
-                            checkot +
-                            `  class="badge gradient-blooker text-white shadow">OT</span>` +
-                            "</div>"
+                        checkot +
+                        `  class="badge gradient-blooker text-white shadow">OT</span>` +
+                        "</div>"
                     )
                 );
-                tr.append(
-                    `<div class="d-block bgnew text-white d-sm-none col-3  pl-0 pr-0  mdstart"><i class="fa fa-sign-in" aria-hidden="true"></div>`
-                );
+                tr.append(`<div class="d-block bgnew text-white d-sm-none col-3  pl-0 pr-0  mdstart"><i class="fa fa-sign-in" aria-hidden="true"></div>`)
                 tr.append(
                     $(
                         '<div class="startTime col-md-2 col-9 col-sm-6">' +
-                            obj.starttime.value +
-                            "</div>"
+                        obj.starttime.value +
+                        "</div>"
                     )
                 );
-                tr.append(
-                    `<div class="d-block bgnew text-white d-sm-none col-3  pl-0 pr-0 mdend"><i class="fa fa-sign-out" aria-hidden="true"></div>`
-                );
+                tr.append(`<div class="d-block bgnew text-white d-sm-none col-3  pl-0 pr-0 mdend"><i class="fa fa-sign-out" aria-hidden="true"></div>`)
                 tr.append(
                     $(
                         '<div class="endTime col-md-2 col-9 col-sm-6">' +
-                            obj.endtime.value +
-                            "</div>"
+                        obj.endtime.value +
+                        "</div>"
                     )
                 );
-                tr.append(
-                    `<div class="d-block bgnew text-white d-sm-none col-3  pl-0 pr-0 mdrest"></div>`
-                );
+                tr.append(`<div class="d-block bgnew text-white d-sm-none col-3  pl-0 pr-0 mdrest"></div>`)
                 tr.append(
                     $(
                         '<div class="col-md-1 col-9 col-sm-3">' +
-                            obj.breaktime.value +
-                            "</div>"
+                        obj.breaktime.value +
+                        "</div>"
                     )
                 );
-                tr.append(
-                    `<div class="d-block bgnew text-white d-sm-none col-3  pl-0 pr-0 mdwork"></div>`
-                );
+                tr.append(`<div class="d-block bgnew text-white d-sm-none col-3  pl-0 pr-0 mdwork"></div>`)
                 tr.append(
                     $(
                         '<div class="col-md-1 col-9 col-sm-3">' +
-                            obj.worktime.value +
-                            "</div>"
+                        obj.worktime.value +
+                        "</div>"
                     )
                 );
-                tr.append(
-                    `<div class="d-block bgnew text-white d-sm-none col-3  pl-0 pr-0 mdot"></div>`
-                );
+                tr.append(`<div class="d-block bgnew text-white d-sm-none col-3  pl-0 pr-0 mdot"></div>`)
                 tr.append(
                     $(
                         '<div class="col-md-1 col-9 col-sm-3">' +
-                            obj.overtime.value +
-                            "</div>"
+                        obj.overtime.value +
+                        "</div>"
                     )
                 );
-                tr.append(
-                    `<div class="d-block bgnew divEnd text-white d-sm-none col-3  pl-0 pr-0"></div>`
-                );
+                tr.append(`<div class="d-block bgnew divEnd text-white d-sm-none col-3  pl-0 pr-0"></div>`)
                 tr.append(
                     $(
                         '<div class="col-md-1 col-9 col-sm-3">' +
                         '<i class="fa fa-pencil trung-pencil" aria-hidden="true"></i><i class="fa fa-save trung-save" style="display:none"></i>' +
-                            "</div>"
+                        "</div>"
                     )
                 );
                 tr.append(
-                    $(
-                        '<div class="enddiv" style="display:none">' +
-                        obj.$id.value +
-                        "</div>"
-                    )
+                    $('<div class="enddiv" style="display:none">' + obj.$id.value + "</div>")
                 );
                 var otnew = obj.overtime.value;
                 var wtnew = obj.worktime.value;
@@ -1242,71 +974,57 @@ function viewDetail2($tr, chatworkid) {
             }
         } // không có data
         else {
-            tr.append(
-                `<div class="d-block bgnew text-white d-sm-none col-3  pl-0 pr-0 mdtype"></div>`
-            );
+            tr.append(`<div class="d-block bgnew text-white d-sm-none col-3  pl-0 pr-0 mdtype"></div>`)
             tr.append(
                 $(
                     '<div class="col-md-2 col-9 col-sm-6">' +
-                        `<span class="badge notset text-white shadow ">No Data</span>` +
-                        "</div>"
+                    `<span class="badge notset text-white shadow ">No Data</span>` +
+                    "</div>"
                 )
             );
-            tr.append(
-                `<div class="d-block bgnew text-white d-sm-none col-3  pl-0 pr-0 mdstart"><i class="fa fa-sign-in" aria-hidden="true"></div>`
-            );
+            tr.append(`<div class="d-block bgnew text-white d-sm-none col-3  pl-0 pr-0 mdstart"><i class="fa fa-sign-in" aria-hidden="true"></div>`)
             tr.append(
                 $(
                     '<div class="col-md-2 col-9 col-sm-6">' +
-                        "&nbsp&nbsp-&nbsp&nbsp" +
-                        "</div>"
+                    "&nbsp&nbsp-&nbsp&nbsp" +
+                    "</div>"
                 )
             );
-            tr.append(
-                `<div class="d-block bgnew text-white d-sm-none col-3  pl-0 pr-0 mdend"><i class="fa fa-sign-out" aria-hidden="true"></div>`
-            );
+            tr.append(`<div class="d-block bgnew text-white d-sm-none col-3  pl-0 pr-0 mdend"><i class="fa fa-sign-out" aria-hidden="true"></div>`)
             tr.append(
                 $(
                     '<div class="col-md-2 col-9 col-sm-6">' +
-                        "&nbsp&nbsp-&nbsp&nbsp" +
-                        "</div>"
+                    "&nbsp&nbsp-&nbsp&nbsp" +
+                    "</div>"
                 )
             );
-            tr.append(
-                `<div class="d-block bgnew text-white d-sm-none col-3  pl-0 pr-0 mdrest"></div>`
-            );
+            tr.append(`<div class="d-block bgnew text-white d-sm-none col-3  pl-0 pr-0 mdrest"></div>`)
             tr.append(
                 $(
                     '<div class="col-md-1 col-9 col-sm-3">' +
-                        "&nbsp&nbsp-&nbsp&nbsp" +
-                        "</div>"
+                    "&nbsp&nbsp-&nbsp&nbsp" +
+                    "</div>"
                 )
             );
-            tr.append(
-                `<div class="d-block bgnew text-white d-sm-none col-3  pl-0 pr-0 mdwork"></div>`
-            );
+            tr.append(`<div class="d-block bgnew text-white d-sm-none col-3  pl-0 pr-0 mdwork"></div>`)
 
             tr.append(
                 $(
                     '<div class="col-md-1 col-9 col-sm-3">' +
-                        "&nbsp&nbsp-&nbsp&nbsp" +
-                        "</div>"
+                    "&nbsp&nbsp-&nbsp&nbsp" +
+                    "</div>"
                 )
             );
-            tr.append(
-                `<div class="d-block bgnew text-white d-sm-none col-3  pl-0 pr-0 mdot"></div>`
-            );
+            tr.append(`<div class="d-block bgnew text-white d-sm-none col-3  pl-0 pr-0 mdot"></div>`)
 
             tr.append(
                 $(
                     '<div class="col-md-1 col-9 col-sm-3">' +
-                        "&nbsp&nbsp-&nbsp&nbsp" +
-                        "</div>"
+                    "&nbsp&nbsp-&nbsp&nbsp" +
+                    "</div>"
                 )
             );
-            tr.append(
-                `<div class="d-block bgnew divEnd text-white d-sm-none col-3  pl-0 pr-0"></div>`
-            );
+            tr.append(`<div class="d-block bgnew divEnd text-white d-sm-none col-3  pl-0 pr-0"></div>`)
             tr.append($('<div class="col-md-1 col-9 col-sm-3"></div>'));
             tr.append($('<div class="enddiv" style="display:none"></div>'));
         }
@@ -1332,7 +1050,7 @@ function viewDetail2($tr, chatworkid) {
     $newdiv.append($table);
     $newtr.append($newdiv);
     $newtr.insertAfter($tr.closest(".data"));
-    if (cybozu.data["LOGIN_USER"].locale == "ja") {
+    if (cybozu.data['LOGIN_USER'].locale == 'ja') {
         $(".mdday").text("日付(jp)");
         $(".mdtype").text("タグ(jp)");
         $(".mdstart").text("出勤時刻(jp)");
@@ -1340,10 +1058,10 @@ function viewDetail2($tr, chatworkid) {
         $(".mdrest").text("休憩時間(jp)");
         $(".mdwork").text("労働時間(jp)");
         $(".mdot").text("残業時間(jp)");
-        $(".mdReason").text("理由(jp)");
-        $(".mdedit").text("編集(jp)");
+        $('.mdReason').text("理由(jp)");
+        $('.mdedit').text("編集(jp)");
     }
-    if (cybozu.data["LOGIN_USER"].locale == "en") {
+    if (cybozu.data['LOGIN_USER'].locale == 'en') {
         $(".mdday").text("日付");
         $(".mdtype").text("タグ");
         $(".mdstart").text("出勤時刻");
@@ -1351,8 +1069,8 @@ function viewDetail2($tr, chatworkid) {
         $(".mdrest").text("休憩時間");
         $(".mdwork").text("労働時間");
         $(".mdot").text("残業時間");
-        $(".mdReason").text("理由");
-        $(".mdedit").text("編集");
+        $('.mdReason').text("理由");
+        $('.mdedit').text("編集");
     }
     // nút chỉnh sửa
     $(".trung-pencil")
@@ -1444,4 +1162,5 @@ function viewDetail2($tr, chatworkid) {
             $(this).hide();
             $(this).prev().show();
         });
+
 }
