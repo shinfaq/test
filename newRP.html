@@ -1,3 +1,10 @@
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,300;0,400;0,700;1,300&display=swap" rel="stylesheet">
+<style>
+    .stn{
+        font-family: 'Roboto Condensed', sans-serif !important;
+    }
+</style>
 <div class="container-fluid">
     <div class="row">
         <div class="col-12">
@@ -5,12 +12,6 @@
                 <label class="col-form-label dropup dpm"></label>
                 <div class="dropup">
                     <select id="brandsMulti" multiple size="3"></select>
-                </div>
-                <div class="dropup">
-                    <button
-                        class="btn btn-primary txtSearch"
-                        onclick="Search()"
-                    ></button>
                 </div>
             </div>
             <div class="row form-group">
@@ -60,7 +61,7 @@
                     >
                         <button
                             type="button"
-                            class="btn btn-primary move-today"
+                            class="btn btn-secondary active move-today"
                             data-action="move-today"
                         ></button>
                         <button
@@ -96,38 +97,38 @@
                     </div>
                     <span id="dateRange" class="render-range"></span>
                 </div>
-                <div class="reportBtn">
-                    <button class="btn" onClick="download2()">
-                        <i class="fas fa-file-csv"></i>
-                    </button>
+                <div class="reportBtn dropup">
+                    <button
+                        class="btn btn-primary dlcsv"
+                        onclick="download2()"
+                    ></button>
+                </div>
+                <div class="dropup">
+                    <button
+                        class="btn btn-primary txtSearch"
+                        onclick="Search()"
+                    ></button>
                 </div>
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="card">
-                <div class="card-header border-0 liststaff"></div>
-                <div class="table-responsive">
-                    <table class="table align-items-center table-flush">
-                        <thead>
-                            <tr>
-                                <th style="width: 15%" class="p4name"></th>
-                                <th class="p4dpm"></th>
-                                <th class="p4wt"></th>
-                                <th class="p4ot"></th>
-                                <th class="p4off"></th>
-                                <th>エクスポート</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody id="showRecord2"></tbody>
-                    </table>
-                </div>
+    <div class="row header text-center">
+        <div class="p4name col-2 pl-0 pr-0"></div>
+        <div class="p4dpm col-2 pl-0 pr-0"></div>
+        <div class="col-5 row pl-0 pr-0">
+            <div class="p4wt col-4 pl-0 pr-0"></div>
+            <div class="p4ot col-4 pl-0 pr-0"></div>
+            <div class="p4off col-4 pl-0 pr-0"></div>
+        </div>
+        <div class="col-3 pl-0 pr-0">
+            <div class="row">
+                <div class="col-6 pl-0 pr-0 download"></div>
+                <div class="col-6 pl-0 pr-0 detail"></div>
             </div>
         </div>
     </div>
 </div>
+<div id="showRecord2" class="container-fluid"></div>
 <div id="loading">
     <div id="loading-image"></div>
 </div>

@@ -38,7 +38,9 @@ var txtPeople = "";
 var txtHour = "";
 var txtTtOff = "";
 var thu = [];
+ getAllData();
 $(document).ready(function () {
+  
     // -----set text for multilang
     if (cybozu.data['LOGIN_USER'].locale == 'en') {
         $(".condition").text("検索条件");
@@ -104,7 +106,6 @@ $(document).ready(function () {
         ];
     }
     $('body').removeClass('body-top');
-    getAllData();
     interval = setInterval(() => {
         if (ready1 && ready2 && ready3 && ready4 && ready5) {
             $('#loading').hide();
@@ -116,6 +117,7 @@ $(document).ready(function () {
 });
 // lấy hết data của các app
 async function getAllData() {
+  console.log("ccccc")
     fetchRecords(listAppId.AttendanceManagement).then(function (records) {
         dataAttendanceManagement = records;
         ready1 = true;
@@ -583,7 +585,7 @@ function loadData() {
             tr.append($('<td class="ot">' + staffOT + '</td>'));
             tr.append($('<td class="offtime">' + staffOffTime + '</td>'));
             tr.append($(`<td class=\"chatworkid\" chatworkid=\"` + staffInfo.chatworkid.value + `\" ><i class="fas fa-eye"></i> </td>`));
-            tr.append($(`<td><button class="btn" onClick="downloadStaff(` + staffInfo.chatworkid.value + `)"><i class="fas fa-file-csv"></i></button></td>`))
+            tr.append($(`<td><image onClick="downloadStaff(` + staffInfo.chatworkid.value + `)" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABHNCSVQICAgIfAhkiAAAAAFzUkdCAK7OHOkAAAAEZ0FNQQAAsY8L/GEFAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAGXRFWHRTb2Z0d2FyZQB3d3cuaW5rc2NhcGUub3Jnm+48GgAAAYhJREFUOE9j/A8EDBQAJihNFGBs+ciw/e4fKA8CGGumzP9/+uotBlZmZrDAmw+fGI4vnghmowPmjk8MzIwMDEn6rAwzPDjBYkz3n75gkBQRAnOQwT+gz3J3/WCQnfqZgbXzEwMbEMvzMzHI8DExrLr+h0F95heGv//+MzAm1Hb/f/P+I8Pmyc1QrQwMV9/8ZTCY+5VBgIORgYsFaAvQVkZGIIEEPv/6z/DvH5YwANkM0izKxcjw889/hhdf/zM8/fyf4cknoGoo+PDjP4MQ0PBX+TyYBuTv/snAAhSV4mFiOBjDzfCzjI/hVzkEP/z4D2xQmCYLw810HgZmoNMwDFh27TeDjQwzw5lEbgZDcUjAwsA/oIs2hnDBAxAEMAx4B7RhdyQ3lIcK/tfwM3gqAwMFCWAY8L+OH8rCBA7JxWCMDDAMwAd4uLjAGBmQZAAoIlEjk0QDsAHG6Mr2/6wsLAygxEQIiAjyMzx/845hx7Q2qAjQBYrSEmBBYgBInaqcNJQHARRmZwYGABeThW6ZJ+fAAAAAAElFTkSuQmCC"></image></td>`))
         }
         else {
             tr.append($(`<td style="text-align:left;" class="stn">` + staffInfo.staffname.value + '</td>'));
@@ -592,7 +594,7 @@ function loadData() {
             tr.append($('<td class="ot">&nbsp-&nbsp</td>'));
             tr.append($('<td class="offtime">' + staffOffTime + '</td>'));
             tr.append($(`<td class=\"chatworkid\" chatworkid=\"` + staffInfo.chatworkid.value + `\" ><i class="fas fa-eye"></i> </td>`));
-            tr.append($(`<td><button class="btn" onClick="downloadStaff(` + staffInfo.chatworkid.value + `)"><i class="fas fa-file-csv"></i></button></td>`))
+            tr.append($(`<td><image onClick="downloadStaff(` + staffInfo.chatworkid.value + `)" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABHNCSVQICAgIfAhkiAAAAAFzUkdCAK7OHOkAAAAEZ0FNQQAAsY8L/GEFAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAGXRFWHRTb2Z0d2FyZQB3d3cuaW5rc2NhcGUub3Jnm+48GgAAAYhJREFUOE9j/A8EDBQAJihNFGBs+ciw/e4fKA8CGGumzP9/+uotBlZmZrDAmw+fGI4vnghmowPmjk8MzIwMDEn6rAwzPDjBYkz3n75gkBQRAnOQwT+gz3J3/WCQnfqZgbXzEwMbEMvzMzHI8DExrLr+h0F95heGv//+MzAm1Hb/f/P+I8Pmyc1QrQwMV9/8ZTCY+5VBgIORgYsFaAvQVkZGIIEEPv/6z/DvH5YwANkM0izKxcjw889/hhdf/zM8/fyf4cknoGoo+PDjP4MQ0PBX+TyYBuTv/snAAhSV4mFiOBjDzfCzjI/hVzkEP/z4D2xQmCYLw810HgZmoNMwDFh27TeDjQwzw5lEbgZDcUjAwsA/oIs2hnDBAxAEMAx4B7RhdyQ3lIcK/tfwM3gqAwMFCWAY8L+OH8rCBA7JxWCMDDAMwAd4uLjAGBmQZAAoIlEjk0QDsAHG6Mr2/6wsLAygxEQIiAjyMzx/845hx7Q2qAjQBYrSEmBBYgBInaqcNJQHARRmZwYGABeThW6ZJ+fAAAAAAElFTkSuQmCC"></image></td>`))
         }
         $('.fa-eye').off('click').on('click', function () {
             var chatworkid = $(this).parent('.chatworkid').attr('chatworkid');
@@ -804,7 +806,7 @@ function viewDetail(chatworkid, wt, ot, offtime) {
     })
     var detail = $('#detail');
     detail.html("");
-    $("#title").html(staffInfo.department.value + " -<span class='stn'> " + staffInfo.staffname.value + "</span> (Chatwork ID︰ " + chatworkid + ")"
+    $("#title").html(staffInfo.department.value + " -<span> " + staffInfo.staffname.value + "</span> (Chatwork ID︰ " + chatworkid + ")"
         + " - [" + staffInfo.starttime.value + " ~ " + staffInfo.endtime.value + "]")
 
     // add OffDay to timeSheetData

@@ -538,7 +538,7 @@ function getScheduleTime($chatworkid, $staffApp)
         CURLOPT_MAXREDIRS => 10,
         CURLOPT_TIMEOUT => 0,
         CURLOPT_FOLLOWLOCATION => true,
-        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,  
         CURLOPT_CUSTOMREQUEST => "GET",
         CURLOPT_POSTFIELDS => "{\r\n    \"app\":" . $staffApp['app'] . ",\r\n    \"query\":\"chatworkid = \\\"" . $chatworkid . "\\\"\",\r\n    \"fields\":[\"starttime\",\"endtime\"]\r\n}",
         CURLOPT_HTTPHEADER => array(

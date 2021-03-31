@@ -1,9 +1,56 @@
+<style>
+
+.caret {
+  display: none;
+}
+
+.card-header.liststaff {
+  font-size: 20px;
+      border-bottom: 1px dashed #e4e4e4 !important;
+}
+
+#trung  thead th{
+      border: none !important;
+}
+
+#trung .p4dpm, #trung .p4wt, #trung  .p4ot,#trung  .p4off{
+     border: none !important;
+}
+
+
+    .close {
+		display:none !important; 
+	}
+	
+	.row {
+        margin-right: -15px !important;
+    margin-left: -15px !important;
+}
+
+.row.special-header {
+  margin-bottom: 0px !important;
+  padding: 10px 0px;
+    text-align: center;
+    background: var(--light);
+    font-size: 12px;
+    font-weight: bold;
+}
+
+
+
+tbody#showRecord {
+    font-family: serif;
+}
+</style>
 <div class="container-fluid font-jp" style="padding-top:20px">
 	<div class="row">
 		<div class="col-12">
 			<div class="card card-custom gutter-b example example-compact" style="padding: 10px 10px;">
-				<div class="card-header">
-					<h3 class="card-title condition"></h3>
+				<div class="card-header condition" 
+style="
+    font-size: 20px;
+    padding: 5px;
+">
 				</div>
 				<div class="card-body">
 					<div class="form-group row">
@@ -14,24 +61,20 @@
 						</div>
 					</div>
 					<div class="form-group row">
-						<label class="col-1 col-form-label ttReport"></label>
 						<div class="col-11 form-flex">
 							<div>
 								<div id="menu-item" class="btn-group btn-group-toggle" data-toggle="buttons">
 									<label class="btn btn-secondary">
 										<input type="radio" name="options" id="option1" autocomplete="off"
-											data-action="toggle-daily">
-											<span class="opt1"></span> 
+											data-action="toggle-daily">  <span class="opt1"></span> 
 									</label>
 									<label class="btn btn-secondary">
 										<input type="radio" name="options" id="option2" autocomplete="off"
-											data-action="toggle-weekly"> 
-											<span class="opt2"></span>
+											data-action="toggle-weekly"> <span class="opt2"></span> 
 									</label>
 									<label class="btn btn-secondary active">
 										<input type="radio" name="options" id="option3" autocomplete="off" checked
-											data-action="toggle-monthly">
-											<span class="opt3"></span>
+											data-action="toggle-monthly"> <span class="opt3"></span> 
 									</label>
 								</div>
 
@@ -56,11 +99,10 @@
 									<span id="renderRange" class="render-range"></span>
 
 								</div>
-
-							</div>
-							<div class="reportBtn">
-								<button class="btn" onClick="download()"><i class="fas fa-file-csv"></i></button>
-
+								<div class="reportBtn btn-group dropup">
+									<button class="btn btn-primary dlcsv" onclick="download()">
+									</button>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -175,7 +217,7 @@
 				<div class="card-header border-0 liststaff"> 
 				</div>
 				<div class="table-responsive">
-					<table class="table align-items-center table-flush">
+					<table id="trung" class="table align-items-center table-flush">
 						<thead>
 							<tr>
 								<th style="width: 15%;" class="p4name"></th>
@@ -196,40 +238,48 @@
 		</div>
 	</div>
 </div>
+<!-- Modal -->
+<div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel"
+	aria-hidden="true">
+	<div class="modal-dialog modal-xl" role="document">
 
-<div class="myModal">
-	<div class="row">
-		<div class="col-lg-12">
-			<div class="card">
-				<div class="close"><button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				  </button></i></div>
-				<div class="card-header border-0" id=title></div>
-				<div class="infor card-header border-0"></div>
+		<div class="modal-content">
 
-				<div class="table-responsive">
-					<div class="table container align-items-center table-flush">
-						<div class="row" style="margin-bottom: 15px;padding:10px 15px;">
-							<div class="col-md-2 col-sm-6 mdday"></div>
-							<div class="col-md-2 col-sm-6 mdtype"></div>
-							<div class="col-md-2 col-sm-6 mdstart"><i class="fa fa-sign-in" aria-hidden="true"></i> 
-							</div>
-							<div class="col-md-2 col-sm-6 mdend"><i class="fa fa-sign-out" aria-hidden="true"></i>
+			<!-- PART 4-->
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="card">
+						<div class="close"><button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						  </button></i></div>
+						<div class="card-header border-0" id=title></div>
+						<div class="infor card-header border-0"></div>
+
+						<div class="table-responsive">
+							<div class="table container align-items-center table-flush">
+								<div class="row special-header" style="margin-bottom: 15px;padding:10px 0px;text-align:center;">
+									<div class="col-md-2 col-sm-6 mdday"></div>
+									<div class="col-md-2 col-sm-6 mdtype"></div>
+									<div class="col-md-2 col-sm-6 mdstart"><i class="fa fa-sign-in" aria-hidden="true"></i> 
+									</div>
+									<div class="col-md-2 col-sm-6 mdend"><i class="fa fa-sign-out" aria-hidden="true"></i>
+										</div>
+									<div class="col-md-1 col-sm-3 mdrest"></div>
+									<div class="col-md-1 col-sm-3 mdwork"></div>
+									<div class="col-md-1 col-sm-3 mdot"></div>
+									<div class="col-md-1 col-sm-3"></div>
 								</div>
-							<div class="col-md-1 col-sm-3 mdrest"></div>
-							<div class="col-md-1 col-sm-3 mdwork"></div>
-							<div class="col-md-1 col-sm-3 mdot"></div>
-							<div class="col-md-1 col-sm-3"></div>
-						</div>
-						<div id="detail">
+								<div id="detail">
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
+
 		</div>
 	</div>
-
 </div>
 <div id="loading">
-    <div id="loading-image" ></div>
+    <div id="loading-image"></div>
 </div>
